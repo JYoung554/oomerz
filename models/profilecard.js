@@ -13,15 +13,19 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  ProfileCard.init({
-    handle: DataTypes.STRING,
-    avatarUrl: DataTypes.STRING,
-    caption: DataTypes.STRING,
-    genStatus: DataTypes.STRING,
-    triviaTotal: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'ProfileCard',
-  });
+  ProfileCard.init(
+    {
+      handle: DataTypes.STRING,
+      avatarUrl: DataTypes.STRING,
+      caption: DataTypes.STRING,
+      genStatus: DataTypes.STRING,
+      triviaTotal: DataTypes.INTEGER
+    },
+    {
+      sequelize,
+      modelName: 'ProfileCard',
+      tableName: 'profileCard'
+    }
+  )
   return ProfileCard;
 };

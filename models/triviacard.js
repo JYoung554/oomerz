@@ -13,12 +13,16 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  TriviaCard.init({
-    triviaQuestion: DataTypes.STRING,
-    questionNumber: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'TriviaCard',
-  });
+  TriviaCard.init(
+    {
+      triviaQuestion: DataTypes.STRING,
+      questionNumber: DataTypes.INTEGER
+    },
+    {
+      sequelize,
+      modelName: 'TriviaCard',
+      tableName: 'triviaCard'
+    }
+  )
   return TriviaCard;
 };

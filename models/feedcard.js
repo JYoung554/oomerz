@@ -13,11 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  FeedCard.init({
-    comment: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'FeedCard',
-  });
+  FeedCard.init(
+    {
+      comment: DataTypes.STRING
+    },
+    {
+      sequelize,
+      modelName: 'FeedCard',
+      tableName: 'feedCard'
+    }
+  )
   return FeedCard;
 };
