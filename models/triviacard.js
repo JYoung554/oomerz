@@ -10,13 +10,23 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      TriviaCard.belongsTo(models.User, {
+        foreignKey: 'userId'
+      })
     }
   };
   TriviaCard.init(
     {
       triviaQuestion: DataTypes.STRING,
-      questionNumber: DataTypes.INTEGER
+      questionNumber: DataTypes.INTEGER,
+      userId: {
+        type: DataTypes.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'users',
+          key: 'id'
+        }
+      }
     },
     {
       sequelize,

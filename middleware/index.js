@@ -32,9 +32,9 @@ const verifyToken = (req, res, next) => {
   }
 }
 
-const stripToken = (res, req, next) => {
-  const token = req.headers[`Authorization`].split(' ')[1]
+const stripToken = (req, res, next) => {
   try {
+    const token = req.headers['Authorization'].split(' ')[1]
     if (token) {
       res.locals.token = token
       return next()
@@ -43,6 +43,7 @@ const stripToken = (res, req, next) => {
     res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   }
 }
+
 module.exports = {
   hashPassword,
   comparePassword,

@@ -10,14 +10,24 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      ProfileCard.belongsTo(models.User, {
+        foreignKey: 'userId'
+      })
     }
   };
   ProfileCard.init(
     {
       caption: DataTypes.STRING,
       genStatus: DataTypes.STRING,
-      triviaTotal: DataTypes.INTEGER
+      triviaTotal: DataTypes.INTEGER,
+      userId: {
+        type: DataTypes.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'users',
+          key: 'id'
+        }
+      }
     },
     {
       sequelize,
