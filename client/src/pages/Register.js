@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import RegisterForm from '../components/RegisterForm'
-
-
+import axios from 'axios'
+import { BASE_URL } from '../globals'
 const Register = (props) => {
   const [registerForm, handleRegisterForm] = useState({
     username: '',
@@ -21,6 +21,7 @@ const Register = (props) => {
         email: '',
         avatarUrl: ''
       })
+      console.log(res)
     } catch (error) {
       throw error
     }
@@ -31,9 +32,11 @@ const Register = (props) => {
     handleRegisterForm({ ...registerForm, [name]: value })
   }
 
+  const registerProps = { registerForm, handleSubmit, handleChange }
+
   return (
     <div>
-      <RegisterForm />
+      <RegisterForm {...registerProps} />
     </div>
   )
 }

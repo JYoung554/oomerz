@@ -6,11 +6,11 @@ axios.interceptors.request.use(
     if (token) {
       config.headers['authorization'] = `Bearer ${token}`
     }
-    return token
+    return config
   },
   (error) => {
     Promise.reject(error)
   }
 )
 
-export const BASE_URL = 'http://localhost:3001'
+export const BASE_URL = 'http://localhost:3000'
