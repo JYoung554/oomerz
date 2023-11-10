@@ -2,13 +2,16 @@ import { Route, Routes } from 'react-router-dom'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Home from './pages/Home'
+import axios from 'axios'
 import Profile from './pages/Profile'
+import { BASE_URL } from './globals'
 import './App.css'
 import './index.css'
 import { useState, useEffect } from 'react'
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false)
+  const [posts, setPosts] = useState([])
   const getToken = () => {
     let token = localStorage.getItem('token')
     if (token) {
@@ -17,8 +20,18 @@ const App = () => {
     }
   }
 
+  const getPosts = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/home`)
+      setPosts(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     getToken()
+    //getPosts()
   }, [])
 
   return (
@@ -30,7 +43,10 @@ const App = () => {
           authenticated={authenticated}
           element={<Login />}
         ></Route>
-        <Route path="/home" element={<Home />}></Route>
+        <Route
+          path="/"
+          element={<Home posts={posts} setPosts={setPosts} />}
+        ></Route>
         <Route path="/profile" element={<Profile />}></Route>
       </Routes>
     </div>

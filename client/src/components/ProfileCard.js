@@ -5,12 +5,12 @@ const ProfileCard = (props) => {
   return (
     <div>
       <div>
-        <h1>Username</h1>
+        <h1>{props.profileForm.username}</h1>
         <div></div>
-        <div></div>
-        <p></p>
-        <p></p>
-        <p></p>
+        <div>{props.profileForm.avatarUrl}A</div>
+        <p>{props.profileForm.caption}A</p>
+        <p>{props.profileForm.genStatus}</p>
+        <p>{props.profileForm.triviaTotal}</p>
       </div>
     </div>
   )

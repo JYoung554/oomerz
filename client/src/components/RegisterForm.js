@@ -10,45 +10,35 @@ const registerForm = (props) => {
           name="username"
           placeholder="Username"
           value={props.registerForm.username}
-          onChange={(e) => {
-            props.handleChange(e)
-          }}
+          onChange={(e) => props.handleChange(e)}
         ></input>
         <input
           type="text"
           name="email"
           placeholder="Email"
           value={props.registerForm.email}
-          onChange={(e) => {
-            props.handleChange(e)
-          }}
+          onChange={(e) => props.handleChange(e)}
         ></input>
         <input
           type="text"
           name="password"
           placeholder="Password"
           value={props.registerForm.password}
-          onChange={(e) => {
-            props.handleChange(e)
-          }}
+          onChange={(e) => props.handleChange(e)}
         ></input>
         <input
           type="text"
           name="handle"
           placeholder="Handle"
           value={props.registerForm.handle}
-          onChange={(e) => {
-            props.handleChange(e)
-          }}
+          onChange={(e) => props.handleChange(e)}
         ></input>
         <input
           type="text"
           name="avatarUrl"
           placeholder="AvatarUrl"
           value={props.registerForm.avatarUrl}
-          onChange={(e) => {
-            props.handleChange(e)
-          }}
+          onChange={(e) => props.handleChange(e)}
         ></input>
         <button>Register</button>
       </form>
