@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import RegisterForm from '../components/RegisterForm'
 import axios from 'axios'
 import { BASE_URL } from '../globals'
-import { REGISTER_FORM, SUBMIT_REGISTER_FORM } from '../store/types'
+const { REGISTER_FORM, SUBMIT_REGISTER_FORM } = require('../store/types')
 
 const iState = {
   registerForm: {

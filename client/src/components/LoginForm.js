@@ -14,6 +14,14 @@ const LoginForm = (props) => {
         ></input>
         <input
           type="text"
+          name="handle"
+          placeholder="Handle"
+          value={props.loginForm.handle}
+          onChange={(e) => props.handleChange(e)}
+        ></input>
+
+        <input
+          type="text"
           name="password"
           placeholder="Password"
           value={props.loginForm.password}

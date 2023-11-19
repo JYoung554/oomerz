@@ -2,12 +2,18 @@ import React, { useState, useReducer } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import LoginForm from '../components/LoginForm'
-import { LOGIN_FORM, SUBMIT_LOGIN_FORM } from '../store/types'
 import { BASE_URL } from '../globals'
+const {
+  LOGIN_FORM,
+  SUBMIT_LOGIN_FORM,
+  SET_CURRENT_USER,
+  SET_CURRENT_USER_DATA
+} = require('../store/types')
 
 const iState = {
   loginForm: {
     email: '',
+    handle: '',
     password: ''
   },
   submittedLogin: false
@@ -45,12 +51,15 @@ const Login = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post(`${BASE_URL}/auth/login`, state.loginForm)
+      const res = await axios.post(`${BASE_URL}/auth/login`, state.loginForm)
+      localStorage.setItem('token', res.data.token)
       dispatch({
         type: SUBMIT_LOGIN_FORM,
         payload: true
       })
-      history('/home')
+      props.appDispatch({ type: SET_CURRENT_USER, payload: res.data.user })
+      props.appDispatch({ type: SET_CURRENT_USER_DATA, payload: res.data.user })
+      history(`/home/${res.data.user.handle}`)
     } catch (error) {
       console.log(error)
     }
