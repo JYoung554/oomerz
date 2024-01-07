@@ -1,12 +1,8 @@
 const router = require('express').Router()
 const controller = require('../controllers/FeedController')
-const middleware = require('../middleware')
+const { StripToken, VerifyToken } = require('../middleware')
 
-router.post(
-  '/',
-  middleware.stripToken,
-  middleware.verifyToken,
-  controller.getAllProfileCards
-)
+router.get('/', controller.getPosts)
+router.post('/', StripToken, VerifyToken, controller.createProfileCard)
 
 module.exports = router

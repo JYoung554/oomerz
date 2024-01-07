@@ -1,6 +1,4 @@
-const { User } = require('./models')
-const Sequelize = require('Sequelize')
-const Op = Sequelize.Op
+/*const { User, TriviaCard } = require('./models')
 
 function stringify(data) {
   JSON.stringify(data, null, 2)
@@ -23,6 +21,11 @@ const findUsersOnlyEmail = async () => {
   stringify(result)
 }
 
+const findAllTrivia = async () => {
+  const result = TriviaCard.findAll()
+  stringify(result)
+}
+
 const run = async () => {
   try {
     await createUser()
@@ -34,3 +37,4 @@ const run = async () => {
   }
 }
 run()
+*/

@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes, useNavigate, useParams } from 'react-router-dom'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Home from './pages/Home'
@@ -7,8 +7,13 @@ import Profile from './pages/Profile'
 import { BASE_URL } from './globals'
 import {
   SET_AUTHENTICATED,
+  SET_USER,
+  CAPTION_FORM,
+  PROFILE_CARDS_BY_HANDLE,
   SET_CURRENT_USER,
   SET_CURRENT_USER_DATA,
+  SET_PROFILE_CARD,
+  GET_PROFILE_FORM,
   GET_ALL_USERS
 } from '../src/store/types'
 import './App.css'
@@ -19,9 +24,14 @@ const iState = {
   authenticated: false,
   currentUser: {},
   currentUserData: null,
+  selectedUser: null,
+  setProfile: [],
+  profileCardsByHandle: [],
+  profileCard: [],
   allUsers: []
 }
 
+//
 const reducer = (state, action) => {
   switch (action.type) {
     case SET_AUTHENTICATED:
@@ -30,23 +40,42 @@ const reducer = (state, action) => {
       return { ...state, currentUser: action.payload }
     case SET_CURRENT_USER_DATA:
       return { ...state, currentUserData: action.payload }
+    case SET_USER:
+      return { ...state, selectedUser: action.payload }
+    /*  case CAPTION_FORM:
+      return {
+        ...state,
+        profileCard: {
+          ...state.profileCard,
+          caption: { [action.payload.name]: action.payload.value }
+        }
+      }*/
+    case SET_PROFILE_CARD:
+      return { ...state, profileCard: action.payload }
+    case PROFILE_CARDS_BY_HANDLE:
+      return { ...state, profileCardsByHandle: action.payload }
+    case GET_PROFILE_FORM:
+      return { ...state, profileCard: action }
     case GET_ALL_USERS:
       return { ...state, allUsers: action.payload }
     default:
       return state
   }
 }
-
+function ProfilePage() {}
+//
 const App = (props) => {
+  let { selectedUser } = useParams()
   const [state, dispatch] = useReducer(reducer, iState)
   const history = useNavigate()
+  let { handle } = useParams()
   const checkToken = async () => {
     let token = localStorage.getItem('token')
     if (token) {
       const res = await axios.get(`${BASE_URL}/auth/session`)
       dispatch({ type: SET_CURRENT_USER, payload: res.data })
-      dispatch({ type: SET_AUTHENTICATED, payload: true })
-      history(`/home/${state.currentUser.handle}`)
+      //dispatch({ type: SET_AUTHENTICATED, payload: true })
+      history(`/${selectedUser}/${state.currentUser.handle}`)
       console.log('true')
     }
   }
@@ -64,10 +93,7 @@ const App = (props) => {
 
   return (
     <div className="App">
-      <Routes
-        authenticated={state.authenticated}
-        currentUser={state.currentUser}
-      >
+      <Routes>
         <Route path="/register" element={<Register />}></Route>
         <Route
           path="/login"
@@ -75,22 +101,41 @@ const App = (props) => {
             <Login
               authenticated={state.authenticated}
               currentUser={state.currentUser}
+              profileCard={state.profileCard}
+              setProfile={state.setProfile}
               appDispatch={dispatch}
             />
           }
         ></Route>
         <Route
-          path="/home/:handle"
+          path={`/${selectedUser}/:handle`}
           element={
             <Home
               authenticated={state.authenticated}
+              profileCard={state.profileCard}
               currentUser={state.currentUser}
+              caption={state.profileCard.caption}
               currentUserData={state.currentUserData}
+              profileCardsByHandle={state.profileCardsByHandle}
+              setProfile={state.setProfile}
+              selectedUser={state.selectedUser}
+              appDispatch={dispatch}
               logOut={logOut}
             />
           }
         ></Route>
-        <Route path="/profile" element={<Profile />}></Route>
+        <Route
+          path="/profile"
+          element={
+            <Profile
+              dispatch={dispatch}
+              profileCardsByHandle={state.profileCardsByHandle}
+              selectedUser={state.selectedUser}
+              currentUser={state.currentUser}
+              currentUserData={state.currentUserData}
+            />
+          }
+        ></Route>
       </Routes>
     </div>
   )

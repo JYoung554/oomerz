@@ -2,22 +2,26 @@ const { User } = require('../models')
 const middleware = require('../middleware')
 
 const Login = async (req, res) => {
-  const user = await User.findOne({
-    where: { email: req.body.email },
-    raw: true
-  })
-  if (
-    user &&
-    (await middleware.comparePassword(user.passwordDigest, req.body.password))
-  ) {
-    let payload = {
-      id: user.id,
-      email: user.email
+  try {
+    const user = await User.findOne({
+      where: { handle: req.body.handle },
+      raw: true
+    })
+    if (
+      user &&
+      (await middleware.comparePassword(user.passwordDigest, req.body.password))
+    ) {
+      let payload = {
+        id: user.id,
+        handle: user.handle
+      }
+      let token = middleware.createToken(payload)
+      return res.send({ user: payload, token })
     }
-    let token = middleware.createToken(payload)
-    return res.send({ user: token, payload })
+    res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
+  } catch (error) {
+    throw error
   }
-  res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
 }
 
 const Register = async (req, res) => {
@@ -38,7 +42,20 @@ const Register = async (req, res) => {
     throw error
   }
 }
+
+
+
+
+const GetCurrentUser = (req, res) => {
+  try {
+    res.send(res.locals.token)
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   Register,
-  Login
+  Login,
+  GetCurrentUser
 }

@@ -17,12 +17,25 @@ module.exports = (sequelize, DataTypes) => {
   };
   ProfileCard.init(
     {
-      caption: DataTypes.STRING,
-      genStatus: DataTypes.STRING,
-      triviaTotal: DataTypes.INTEGER,
+      caption: {
+        type: DataTypes.STRING,
+        defaultValue: '',
+        allowNull: false
+      },
+      genStatus: {
+        type: DataTypes.STRING,
+        defaultValue: '',
+        allowNull: false
+      },
+      triviaTotal: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        allowNull: false
+      },
       userId: {
         type: DataTypes.INTEGER,
         onDelete: 'CASCADE',
+        allowNull: false,
         references: {
           model: 'users',
           key: 'id'

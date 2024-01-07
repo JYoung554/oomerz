@@ -13,18 +13,27 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.TriviaCard, {
         foreignKey: 'userId'
       })
-      User.hasMany(models.ProfileCard, {
+      User.hasOne(models.ProfileCard, {
         foreignKey: 'userId'
       })
     }
-  };
+  }
   User.init(
     {
-      username: DataTypes.STRING,
-      handle: DataTypes.STRING,
+      username: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      handle: {
+        type: DataTypes.STRING
+      },
       email: DataTypes.STRING,
-      passwordDigest: DataTypes.STRING,
-      avatarUrl: DataTypes.STRING
+      passwordDigest: {
+        type: DataTypes.STRING
+      },
+      avatarUrl: {
+        type: DataTypes.STRING
+      }
     },
     {
       sequelize,

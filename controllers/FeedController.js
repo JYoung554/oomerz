@@ -14,14 +14,10 @@ const createProfileCard = async (req, res) => {
   }
 }
 
-const getOneProfileCard = async (req, res) => {
+const getPosts = async (req, res) => {
   try {
-    const user_id = parseInt(req.params.user_id)
-    const profileCard = await ProfileCard.findAll({
-      attributes: ['id'],
-      where: { id: user_id }
-    })
-    res.send(profileCard)
+    const posts = await ProfileCard.findAll()
+    res.send(posts)
   } catch (error) {
     throw error
   }
@@ -39,35 +35,8 @@ const getAllProfileCards = async () => {
   }
 }
 
-const updateProfileCard = async (req, res) => {
-  try {
-    const user_id = parseInt(req.params.user_id)
-    const profileCard = await ProfileCard.update(req.body, {
-      where: { id: user_id },
-      returning: true
-    })
-    res.send(profileCard)
-  } catch (error) {
-    throw error
-  }
-}
-
-const deleteProfile = async () => {
-  try {
-    const user_id = parseInt(req.params.user_id)
-    const deleteProfile = await ProfileCard.destroy({
-      where: { id: user_id }
-    })
-    res.send(deleteProfile)
-  } catch (error) {
-    throw error
-  }
-}
-
 module.exports = {
   createProfileCard,
-  getOneProfileCard,
   getAllProfileCards,
-  updateProfileCard,
-  deleteProfile
+  getPosts
 }

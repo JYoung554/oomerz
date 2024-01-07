@@ -7,7 +7,11 @@ const {
   LOGIN_FORM,
   SUBMIT_LOGIN_FORM,
   SET_CURRENT_USER,
-  SET_CURRENT_USER_DATA
+  SET_CURRENT_USER_DATA,
+  SET_AUTHENTICATED,
+  SET_USER,
+  RESET_LOGIN,
+  SET_PROFILE_CARD
 } = require('../store/types')
 
 const iState = {
@@ -31,6 +35,8 @@ const reducer = (state, action) => {
       }
     case SUBMIT_LOGIN_FORM:
       return { ...iState, submittedLogin: action.payload }
+    case RESET_LOGIN:
+      return { ...iState }
     default:
       return state
   }
@@ -38,7 +44,9 @@ const reducer = (state, action) => {
 
 const Login = (props) => {
   const [state, dispatch] = useReducer(reducer, iState)
+  const { profileCard } = props
   const loginForm = state.loginForm
+
   const history = useNavigate()
 
   const handleChange = (e) => {
@@ -49,17 +57,24 @@ const Login = (props) => {
   }
 
   const handleSubmit = async (e) => {
+    const { selectedUser } = props
     e.preventDefault()
     try {
       const res = await axios.post(`${BASE_URL}/auth/login`, state.loginForm)
+
       localStorage.setItem('token', res.data.token)
       dispatch({
         type: SUBMIT_LOGIN_FORM,
         payload: true
       })
+      dispatch({
+        type: RESET_LOGIN
+      })
       props.appDispatch({ type: SET_CURRENT_USER, payload: res.data.user })
       props.appDispatch({ type: SET_CURRENT_USER_DATA, payload: res.data.user })
-      history(`/home/${res.data.user.handle}`)
+      props.appDispatch({ type: SET_USER, payload: res.data.user })
+      props.appDispatch({ type: SET_AUTHENTICATED, payload: true })
+      history(`/${selectedUser}/${res.data.user.handle}`)
     } catch (error) {
       console.log(error)
     }
@@ -68,7 +83,7 @@ const Login = (props) => {
 
   return (
     <div>
-      <LoginForm {...loginProps} />
+      <LoginForm {...loginProps} {...profileCard} />
     </div>
   )
 }
