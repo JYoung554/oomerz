@@ -4,6 +4,7 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import axios from 'axios'
 import Profile from './pages/Profile'
+import Trivia from './pages/Trivia'
 import { BASE_URL } from './globals'
 import {
   SET_AUTHENTICATED,
@@ -74,9 +75,9 @@ const App = (props) => {
     if (token) {
       const res = await axios.get(`${BASE_URL}/auth/session`)
       dispatch({ type: SET_CURRENT_USER, payload: res.data })
-      //dispatch({ type: SET_AUTHENTICATED, payload: true })
-      history(`/${selectedUser}/${state.currentUser.handle}`)
-      console.log('true')
+      dispatch({ type: SET_USER, payload: res.data })
+      history(`/home/${state.currentUser.handle}`)
+      console.log(state.currentUser)
     }
   }
   const logOut = () => {
@@ -108,7 +109,7 @@ const App = (props) => {
           }
         ></Route>
         <Route
-          path={`/${selectedUser}/:handle`}
+          path={`/home/:handle`}
           element={
             <Home
               authenticated={state.authenticated}
@@ -130,6 +131,17 @@ const App = (props) => {
             <Profile
               dispatch={dispatch}
               profileCardsByHandle={state.profileCardsByHandle}
+              selectedUser={state.selectedUser}
+              currentUser={state.currentUser}
+              currentUserData={state.currentUserData}
+            />
+          }
+        ></Route>
+        <Route
+          path="/trivia"
+          element={
+            <Trivia
+              appDispatch={dispatch}
               selectedUser={state.selectedUser}
               currentUser={state.currentUser}
               currentUserData={state.currentUserData}

@@ -9,7 +9,7 @@ import {
   SET_USER
 } from '../store/types'
 
-import TriviaCard from '../components/TriviaCard'
+
 
 const Profile = (props) => {
   const {
@@ -19,43 +19,47 @@ const Profile = (props) => {
     currentUser,
     currentUserData
   } = props
+
   const [users, setUsers] = useState([])
-  const [profileCards, setProfileCards] = useState([])
+  const [profileCards, setProfileCards] = useState([users])
   const getAllProfileCards = async () => {
     const res = await axios.get(
-      `${BASE_URL}/home/profileCard/${selectedUser.id}`
+      `${BASE_URL}/home/profileCard/${selectedUser.id}`,
+      `${BASE_URL}/home`
     )
+
     console.log(res.data)
     setProfileCards(res.data)
   }
 
   const getAllUsers = async () => {
     const res = await axios.get(`${BASE_URL}/home`)
+
     console.log(res.data)
     setUsers(res.data)
   }
 
   useEffect(() => {
-    getAllProfileCards()
     getAllUsers()
-  }, [])
+    getAllProfileCards()
+  }, [selectedUser])
 
   return (
     <div>
-      <div>
-        {profileCards.map((profileCard, id) => (
-          <div key={`${id}`}>
-            <h2>{profileCard.caption}</h2>
-            <p>{profileCard.genStatus}</p>
-            <p>{profileCard.triviaTotal}</p>
-          </div>
-        ))}
-      </div>
-      {users.map((user, id) => (
-        <div key={`${id}`}>
-          <h2>{user.handle}</h2>
+      {users.length ? (
+        <div>
+          {profileCards.map((profileCard, idx) => (
+            <div key={`${profileCard.id}`}>
+              <p>{profileCard.User.handle}</p>
+              <p>{profileCard.caption}</p>
+              <p>{profileCard.triviaTotal}</p>
+              <p>{profileCard.genStatus}</p>
+            </div>
+          ))}
         </div>
-      ))}
+      ) : (
+        <p>'no users.'</p>
+      )}
     </div>
   )
 }

@@ -144,6 +144,12 @@ const Home = (props) => {
       console.log(error)
     }
   }
+
+  const getTrivia = async () => {
+    //const res = await axios.get(`${BASE_URL}/`)
+    history(`/trivia`)
+  }
+
   /*const renderProfiles = () => {
     return currentUserData.Users.map((user, index) => (
       <div key={index}>
@@ -189,7 +195,9 @@ const Home = (props) => {
             )}
           </Card>
         </Grid.Column>
+        <button onClick={(e) => getTrivia(e)}>Start Trivia</button>
       </Grid.Row>
+
       <button onClick={props.logOut}></button>
     </Grid>
   ) : (

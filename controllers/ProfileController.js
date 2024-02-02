@@ -66,10 +66,16 @@ const getAllUsers = async (req, res) => {
 
 const getProfileCardsByUser = async (req, res) => {
   try {
-    let userId = parseInt(req.params.user_Id)
+    let userId = parseInt(req.params.user_id)
     let profileCards = await ProfileCard.findAll({
       where: { userId: userId },
-      attributes: ['id', 'caption']
+      attributes: ['id', 'caption', 'genStatus', 'triviaTotal'],
+      include: [
+        {
+          model: User,
+          attributes: ['id', 'handle']
+        }
+      ]
     })
     res.send(profileCards)
   } catch (error) {

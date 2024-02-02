@@ -1,5 +1,15 @@
-const { User, ProfileCard } = require('../models')
+const { User, ProfileCard, TriviaCard } = require('../models')
 const middleware = require('../middleware')
+
+const getTriviaCard = async (req, res) => {
+  try {
+    let userId = parseInt(req.params.user_id)
+    const trivia = await TriviaCard.findAll()
+    res.send(trivia)
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const createProfileCard = async (req, res) => {
   try {
@@ -27,7 +37,7 @@ const getAllProfileCards = async () => {
   try {
     const profileCards = await ProfileCard.findAll({
       attributes: ['id', 'caption', 'genStatus', 'triviaTotal'],
-      include: [{ model: User, attributes: ['id', 'username'] }]
+      include: [{ model: User, attributes: ['id', 'username', 'handle'] }]
     })
     res.send(profileCards)
   } catch (error) {
@@ -36,6 +46,7 @@ const getAllProfileCards = async () => {
 }
 
 module.exports = {
+  getTriviaCard,
   createProfileCard,
   getAllProfileCards,
   getPosts
