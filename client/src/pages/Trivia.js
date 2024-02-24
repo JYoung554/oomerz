@@ -8,7 +8,7 @@ import {
 } from '../store/types'
 import { useEffect, useState, useReducer } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { triviaQuestions } from '../store/triviaList'
+import questions from '../store/triviaList'
 
 const iState = {
   answerForm: '',
@@ -31,50 +31,49 @@ const reducer = (state, action) => {
 
 const Trivia = (props) => {
   const { currentUser, currentUserData, selectedUser, appDispatch } = props
-  const questions = triviaQuestions.questions
-  const [trivia, setTriviaQuestions] = useState([questions])
+  const history = useNavigate()
+  const [trivia, setTriviaQuestions] = useState(0)
+  const [showScore, setShowScore] = useState(false)
   const [state, dispatch] = useReducer(reducer, iState)
-  const getTriviaQuestions = async () => {
+  /*const getTriviaQuestions = async () => {
     const res = await axios.get(`${BASE_URL}/trivia`)
     console.log(questions)
     setTriviaQuestions(res)
-  }
+  }*/
 
-  const handleSubmitAnswer = async (e) => {
-    e.preventDefault(e)
-    try {
-      dispatch({ type: SUBMIT_ANSWER_FORM, payload: true })
-      dispatch({ type: CLICKED_POST_ANSWER, payload: !state.clickedPostAnswer })
-    } catch (error) {
-      console.log(error)
+  const handleSubmitAnswer = async () => {
+    const nextQuestion = trivia + 1
+    if (nextQuestion < questions.length) {
+      setTriviaQuestions(nextQuestion)
+      console.log(questions[trivia].answer)
+    } else {
+      setShowScore(true)
+      history('/profile')
     }
   }
 
   useEffect(() => {
-    getTriviaQuestions()
+    //getTriviaQuestions()
   }, [selectedUser])
   return questions.length ? (
     <div>
-      {questions.map((triviaQuestion, i) => (
-        <div key={`${triviaQuestion.id}`}>
-          {i === 0 ? <p>{triviaQuestion.question}</p> : <p></p>}
+      {false ? (
+        <div>Trivia Completed!</div>
+      ) : (
+        <div>
+          <p>{questions[trivia].question}</p>
+          {questions[trivia].answer.map((answerChoice) => (
+            <button
+              onClick={(e) => {
+                handleSubmitAnswer(e)
+              }}
+            >
+              {answerChoice.answerText}
+            </button>
+          ))}
+          <p></p>
         </div>
-      ))}
-      <form onSubmit={(e) => handleSubmitAnswer(e)}>
-        <input
-          type="text"
-          name="answerForm"
-          placeholder="Answer"
-          value={state.answerForm}
-          onChange={(e) =>
-            dispatch({
-              type: ANSWER_FORM,
-              payload: e.target.value
-            })
-          }
-        ></input>
-      </form>
-      <button>Next</button>
+      )}
     </div>
   ) : (
     <p>No trivia</p>
