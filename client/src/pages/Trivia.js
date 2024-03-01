@@ -51,10 +51,10 @@ const Trivia = (props) => {
       const res = await axios.get(`${BASE_URL}/home/${handle}`)
       if (!selectedUser && res.data) {
         appDispatch({ type: SET_USER, payload: res.data })
-        console.log(currentUserData)
       } else if (selectedUser && selectedUser.handle !== res.data.handle) {
         appDispatch({ type: SET_USER, payload: res.data })
         console.log(currentUser)
+
       }
     } catch (error) {
       console.log(error)
