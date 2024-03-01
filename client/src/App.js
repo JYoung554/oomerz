@@ -76,6 +76,7 @@ const App = (props) => {
       const res = await axios.get(`${BASE_URL}/auth/session`)
       dispatch({ type: SET_CURRENT_USER, payload: res.data })
       dispatch({ type: SET_USER, payload: res.data })
+      dispatch({ type: SET_AUTHENTICATED, payload: true })
       history(`/home/${state.currentUser.handle}`)
       console.log(state.currentUser)
     }

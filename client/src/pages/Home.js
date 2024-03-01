@@ -146,7 +146,7 @@ const Home = (props) => {
   }
 
   const getTrivia = async () => {
-    //const res = await axios.get(`${BASE_URL}/`)
+    console.log(currentUser)
     history(`/trivia`)
   }
 
@@ -164,7 +164,7 @@ const Home = (props) => {
 */
   useEffect(() => {
     getProfile()
-  }, [selectedUser, profileCardsByHandle])
+  }, [selectedUser, profileCardsByHandle, currentUser])
 
   return currentUser && currentUserData ? (
     <Grid>

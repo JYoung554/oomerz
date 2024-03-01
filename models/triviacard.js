@@ -14,11 +14,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId'
       })
     }
-  };
+  }
   TriviaCard.init(
     {
-      triviaQuestion: DataTypes.STRING,
-      questionNumber: DataTypes.INTEGER,
+      genStatus: DataTypes.STRING,
+      triviaTotal: DataTypes.INTEGER,
       userId: {
         type: DataTypes.INTEGER,
         onDelete: 'CASCADE',
@@ -30,8 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'TriviaCard',
-      tableName: 'triviaCards'
+      modelName: 'TriviaCard'
     }
   )
   return TriviaCard;

@@ -1,23 +1,24 @@
-'use strict';
+'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('triviaCards', {
+    await queryInterface.createTable('TriviaCards', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      genStatus: {
+        type: Sequelize.STRING
+      },
+      triviaTotal: {
+        type: Sequelize.INTEGER
+      },
       userId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
-        references: { model: 'users', key: 'id' }
-      },
-      triviaQuestion: {
-        type: Sequelize.STRING
-      },
-      questionNumber: {
-        type: Sequelize.INTEGER
+        references: { model: 'users', key: 'id' },
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -30,6 +31,6 @@ module.exports = {
     })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('triviaCards')
+    await queryInterface.dropTable('TriviaCards')
   }
-};
+}

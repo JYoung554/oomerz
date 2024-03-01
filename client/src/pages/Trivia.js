@@ -7,7 +7,7 @@ import {
   CLICKED_POST_ANSWER
 } from '../store/types'
 import { useEffect, useState, useReducer } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import questions from '../store/triviaList'
 
 const iState = {
@@ -32,7 +32,12 @@ const reducer = (state, action) => {
 const Trivia = (props) => {
   const { currentUser, currentUserData, selectedUser, appDispatch } = props
   const history = useNavigate()
+  let handle = useParams()
   const [trivia, setTriviaQuestions] = useState(0)
+  const [user, setUser] = useState([])
+  const [answerForm, setAnswerForm] = useState('')
+  const [boomer, setBoomer] = useState(0)
+  const [score, setScore] = useState(0)
   const [showScore, setShowScore] = useState(false)
   const [state, dispatch] = useReducer(reducer, iState)
   /*const getTriviaQuestions = async () => {
@@ -41,35 +46,60 @@ const Trivia = (props) => {
     setTriviaQuestions(res)
   }*/
 
-  const handleSubmitAnswer = async () => {
+  const getUser = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/home/${handle}`)
+      if (!selectedUser && res.data) {
+        appDispatch({ type: SET_USER, payload: res.data })
+        console.log(currentUserData)
+      } else if (selectedUser && selectedUser.handle !== res.data.handle) {
+        appDispatch({ type: SET_USER, payload: res.data })
+        console.log(currentUser)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleSubmitAnswer = async (isCorrect) => {
+    if (isCorrect === true) {
+      setScore(score + 1)
+    }
+    console.log(score)
     const nextQuestion = trivia + 1
     if (nextQuestion < questions.length) {
       setTriviaQuestions(nextQuestion)
+      setAnswerForm('')
       console.log(questions[trivia].answer)
     } else {
       setShowScore(true)
-      history('/profile')
+      history('/home/:handle')
     }
   }
 
   useEffect(() => {
     //getTriviaQuestions()
+    getUser()
   }, [selectedUser])
   return questions.length ? (
     <div>
-      {false ? (
+      {showScore ? (
         <div>Trivia Completed!</div>
       ) : (
         <div>
-          <p>{questions[trivia].question}</p>
-          {questions[trivia].answer.map((answerChoice) => (
-            <button
-              onClick={(e) => {
-                handleSubmitAnswer(e)
-              }}
-            >
-              {answerChoice.answerText}
-            </button>
+          <div>
+            <p>{questions[trivia].question}</p>
+          </div>
+          {questions[trivia].answer.map((answerChoice, idx) => (
+            <div key={idx}>
+              <button
+                onClick={() => {
+                  handleSubmitAnswer(answerChoice.isCorrect)
+                }}
+              >
+                {answerChoice.answerText}
+              </button>
+            </div>
           ))}
           <p></p>
         </div>
