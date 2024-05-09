@@ -16,12 +16,17 @@ const createProfileCard = async (req, res) => {
 
 const getOneProfileCard = async (req, res) => {
   try {
-    const userId = parseInt(req.params.user_id)
-    const profileCard = await ProfileCard.findOne({
-      attributes: ['caption', 'genStatus', 'triviaTotal'],
-      where: { userId: userId }
+    let userId = parseInt(req.params.user_id)
+    const user = await User.findOne({
+      attributes: ['id', 'handle', 'avatarUrl'],
+      where: { userId: userId },
+      include: {
+        model: ProfileCard,
+        attributes: ['id', 'caption', 'genStatus', 'triviaTotal']
+      }
     })
-    res.send(profileCard)
+    res.send(user)
+    console.log(user)
   } catch (error) {
     throw error
   }
@@ -31,11 +36,12 @@ const getOneUser = async (req, res) => {
   try {
     let handle = req.params.handle
     const user = await User.findOne({
-      attributes: ['id', 'handle'],
+      attributes: ['id', 'handle', 'avatarUrl'],
       where: { handle: handle },
       include: [
         {
           model: ProfileCard,
+          required: false,
           attributes: ['id', 'caption', 'genStatus', 'triviaTotal']
         }
       ]
@@ -50,7 +56,7 @@ const getOneUser = async (req, res) => {
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'handle'],
+      attributes: ['id', 'handle', 'avatarUrl'],
       include: [
         {
           model: ProfileCard,
@@ -67,15 +73,9 @@ const getAllUsers = async (req, res) => {
 const getProfileCardsByUser = async (req, res) => {
   try {
     let userId = parseInt(req.params.user_id)
-    let profileCards = await ProfileCard.findAll({
+    let profileCards = await ProfileCard.findOne({
       where: { userId: userId },
-      attributes: ['id', 'caption', 'genStatus', 'triviaTotal'],
-      include: [
-        {
-          model: User,
-          attributes: ['id', 'handle']
-        }
-      ]
+      attributes: ['id', 'caption', 'genStatus', 'triviaTotal']
     })
     res.send(profileCards)
   } catch (error) {
@@ -95,23 +95,23 @@ const getPosts = async (req, res) => {
 const updateProfileCard = async (req, res) => {
   try {
     const user_id = parseInt(req.params.user_id)
-    const profileCard = await ProfileCard.update(req.body, {
+    const updatedProfileCard = await ProfileCard.update(req.body, {
       where: { id: user_id },
       returning: true
     })
-    res.send(profileCard)
+    res.send(updatedProfileCard)
   } catch (error) {
     throw error
   }
 }
 
-const deleteProfile = async () => {
+const deleteProfile = async (res, req) => {
   try {
-    const user_id = parseInt(req.params.user_id)
-    const deleteProfile = await ProfileCard.destroy({
+    let user_id = parseInt(req.params.user_id)
+    const delProfile = await ProfileCard.destroy({
       where: { id: user_id }
     })
-    res.send(deleteProfile)
+    res.send({ message: `deleted Profile Card ${user_id}` })
   } catch (error) {
     throw error
   }

@@ -4,7 +4,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -13,7 +13,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -22,7 +22,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -31,7 +31,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -40,7 +40,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -49,7 +49,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -58,7 +58,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -67,7 +67,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -76,7 +76,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -85,7 +85,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -94,7 +94,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -103,7 +103,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -112,7 +112,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -121,7 +121,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -130,7 +130,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -139,7 +139,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -148,7 +148,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -157,7 +157,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -166,7 +166,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -175,7 +175,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -184,7 +184,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -193,7 +193,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -202,7 +202,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -211,7 +211,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -220,7 +220,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -229,7 +229,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -238,7 +238,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -247,7 +247,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -256,7 +256,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -265,7 +265,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -274,7 +274,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -283,7 +283,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -292,7 +292,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -301,7 +301,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -310,7 +310,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -319,7 +319,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -328,7 +328,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -337,7 +337,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -346,7 +346,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -355,7 +355,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -364,7 +364,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -373,7 +373,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -382,7 +382,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -391,7 +391,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -400,7 +400,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -409,7 +409,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -418,7 +418,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -427,7 +427,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -436,7 +436,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   },
@@ -445,7 +445,7 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true },
+      { answerText: '1966', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   }

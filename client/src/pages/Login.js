@@ -9,6 +9,8 @@ const {
   SET_CURRENT_USER,
   SET_CURRENT_USER_DATA,
   SET_AUTHENTICATED,
+  PROFILE_CARDS_BY_HANDLE,
+  GET_PROFILE_CARD,
   SET_USER,
   RESET_LOGIN,
   SET_PROFILE_CARD
@@ -44,7 +46,14 @@ const reducer = (state, action) => {
 
 const Login = (props) => {
   const [state, dispatch] = useReducer(reducer, iState)
-  const { profileCard } = props
+  const {
+    profileCard,
+    caption,
+    genStatus,
+    triviaTotal,
+    profileCardsByHandle,
+    currentUserData
+  } = props
   const loginForm = state.loginForm
 
   const history = useNavigate()
@@ -73,7 +82,9 @@ const Login = (props) => {
       props.appDispatch({ type: SET_CURRENT_USER, payload: res.data.user })
       props.appDispatch({ type: SET_CURRENT_USER_DATA, payload: res.data.user })
       props.appDispatch({ type: SET_USER, payload: res.data.user })
+
       props.appDispatch({ type: SET_AUTHENTICATED, payload: true })
+
       history(`/home/${res.data.user.handle}`)
     } catch (error) {
       console.log(error)

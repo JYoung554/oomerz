@@ -2,7 +2,7 @@ import React from 'react'
 
 const registerForm = (props) => {
   return (
-    <div>
+    <div class="main-container">
       <h3>Register</h3>
       <form onSubmit={(e) => props.handleSubmit(e)}>
         <input
@@ -40,7 +40,7 @@ const registerForm = (props) => {
           value={props.registerForm.avatarUrl}
           onChange={(e) => props.handleChange(e)}
         ></input>
-        <button>Register</button>
+        <button class="home-button">Register</button>
       </form>
     </div>
   )

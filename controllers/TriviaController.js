@@ -11,14 +11,14 @@ const getTriviaCard = async (req, res) => {
   }
 }
 
-const createProfileCard = async (req, res) => {
+const createTriviaCard = async (req, res) => {
   try {
-    const user_id = parseInt(req.params.user_id)
-    const profileCard = await ProfileCard.create({
-      user_id: user_id,
+    let profileCardId = parseInt(req.params.profileCard_id)
+    const triviaCard = await TriviaCard.create({
+      profileCardId,
       ...req.body
     })
-    res.send(profileCard)
+    res.send(triviaCard)
   } catch (error) {
     throw error
   }
@@ -47,7 +47,7 @@ const getAllProfileCards = async () => {
 
 module.exports = {
   getTriviaCard,
-  createProfileCard,
+  createTriviaCard,
   getAllProfileCards,
   getPosts
 }

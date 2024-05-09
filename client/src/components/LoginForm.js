@@ -2,7 +2,7 @@ import React from 'react'
 
 const LoginForm = (props) => {
   return (
-    <div>
+    <div class="main-container">
       <form onSubmit={(e) => props.handleSubmit(e)}>
         <h3>Login</h3>
         <input
@@ -27,7 +27,7 @@ const LoginForm = (props) => {
           value={props.loginForm.password}
           onChange={(e) => props.handleChange(e)}
         ></input>
-        <button>Login</button>
+        <button class="home-button">Login</button>
       </form>
     </div>
   )

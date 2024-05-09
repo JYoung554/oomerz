@@ -9,13 +9,17 @@ import { BASE_URL } from './globals'
 import {
   SET_AUTHENTICATED,
   SET_USER,
+  SET_TRIVIA_TOTAL,
+  SET_GEN_STATUS,
   CAPTION_FORM,
   PROFILE_CARDS_BY_HANDLE,
   SET_CURRENT_USER,
   SET_CURRENT_USER_DATA,
   SET_PROFILE_CARD,
-  GET_PROFILE_FORM,
-  GET_ALL_USERS
+  UPDATE_PROFILE_CARD,
+  SET_CURRENT_USER_SELECTED_PROFILE_CARD,
+  GET_ALL_USERS,
+  GET_PROFILE_CARD
 } from '../src/store/types'
 import './App.css'
 import './index.css'
@@ -25,9 +29,12 @@ const iState = {
   authenticated: false,
   currentUser: {},
   currentUserData: null,
+  currentUserSelectedProfileCard: [],
   selectedUser: null,
+  genStatus: 'None',
   setProfile: [],
   profileCardsByHandle: [],
+  triviaTotal: 0,
   profileCard: [],
   allUsers: []
 }
@@ -41,6 +48,10 @@ const reducer = (state, action) => {
       return { ...state, currentUser: action.payload }
     case SET_CURRENT_USER_DATA:
       return { ...state, currentUserData: action.payload }
+    case SET_GEN_STATUS:
+      return { ...state, genStatus: action.payload }
+    case SET_TRIVIA_TOTAL:
+      return { ...state, triviaTotal: state.triviaTotal + 1 }
     case SET_USER:
       return { ...state, selectedUser: action.payload }
     /*  case CAPTION_FORM:
@@ -55,17 +66,30 @@ const reducer = (state, action) => {
       return { ...state, profileCard: action.payload }
     case PROFILE_CARDS_BY_HANDLE:
       return { ...state, profileCardsByHandle: action.payload }
-    case GET_PROFILE_FORM:
-      return { ...state, profileCard: action }
+    case GET_PROFILE_CARD:
+      return { ...state, profileCard: action.payload }
     case GET_ALL_USERS:
       return { ...state, allUsers: action.payload }
+    case SET_CURRENT_USER_SELECTED_PROFILE_CARD:
+      return { ...state, currentUserSelectedProfile: action.payload }
+    case UPDATE_PROFILE_CARD:
+      let updatedProfileCard = state.currentUserData.ProfileCard.filter(
+        (profileCard) => profileCard.id !== action.payload.id
+      )
+      return {
+        ...state,
+        currentUserData: {
+          ...state.currentUserData,
+          ProfileCard: [...updatedProfileCard, action.payload.ProfileCard]
+        }
+      }
     default:
       return state
   }
 }
 function ProfilePage() {}
 //
-const App = (props) => {
+const App = () => {
   let { selectedUser } = useParams()
   const [state, dispatch] = useReducer(reducer, iState)
   const history = useNavigate()
@@ -74,11 +98,12 @@ const App = (props) => {
     let token = localStorage.getItem('token')
     if (token) {
       const res = await axios.get(`${BASE_URL}/auth/session`)
+
       dispatch({ type: SET_CURRENT_USER, payload: res.data })
-      dispatch({ type: SET_USER, payload: res.data })
+      dispatch({ type: SET_CURRENT_USER_DATA, payload: res.data })
       dispatch({ type: SET_AUTHENTICATED, payload: true })
       history(`/home/${state.currentUser.handle}`)
-      console.log(state.currentUser)
+      console.log(state.currentUserData)
     }
   }
   const logOut = () => {
@@ -91,6 +116,7 @@ const App = (props) => {
   useEffect(() => {
     checkToken()
     console.log(state.authenticated)
+    console.log(state.genStatus)
   }, [state.authenticated])
 
   return (
@@ -105,6 +131,7 @@ const App = (props) => {
               currentUser={state.currentUser}
               profileCard={state.profileCard}
               setProfile={state.setProfile}
+              genStatus={state.genStatus}
               appDispatch={dispatch}
             />
           }
@@ -116,10 +143,14 @@ const App = (props) => {
               authenticated={state.authenticated}
               profileCard={state.profileCard}
               currentUser={state.currentUser}
-              caption={state.profileCard.caption}
+              triviaTotal={state.triviaTotal}
               currentUserData={state.currentUserData}
+              currentUserSelectedProfileCard={
+                state.currentUserSelectedProfileCard
+              }
               profileCardsByHandle={state.profileCardsByHandle}
               setProfile={state.setProfile}
+              genStatus={state.genStatus}
               selectedUser={state.selectedUser}
               appDispatch={dispatch}
               logOut={logOut}
@@ -133,6 +164,7 @@ const App = (props) => {
               dispatch={dispatch}
               profileCardsByHandle={state.profileCardsByHandle}
               selectedUser={state.selectedUser}
+              genStatus={state.genStatus}
               currentUser={state.currentUser}
               currentUserData={state.currentUserData}
             />
@@ -143,8 +175,10 @@ const App = (props) => {
           element={
             <Trivia
               appDispatch={dispatch}
+              genStatus={state.genStatus}
               selectedUser={state.selectedUser}
               currentUser={state.currentUser}
+              triviaTotal={state.triviaTotal}
               currentUserData={state.currentUserData}
             />
           }

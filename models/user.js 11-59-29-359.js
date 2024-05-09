@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+'use strict'
+const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -32,8 +30,18 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING
       },
       avatarUrl: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        defaultValue: 'https://imgur.com/od6ga6F'
       }
+      /* profileCardId: {
+        type: DataTypes.INTEGER,
+        onDelete: 'CASCADE',
+        allowNull: false,
+        references: {
+          model: 'profileCards',
+          key: 'id'
+        }
+      }*/
     },
     {
       sequelize,
@@ -41,5 +49,5 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'users'
     }
   )
-  return User;
-};
+  return User
+}

@@ -5,7 +5,8 @@ const controller = require('../controllers/ProfileController')
 router.get('/:handle', controller.getOneUser /*controller.getOneProfileCard*/)
 router.get('/', controller.getAllUsers)
 router.get('/profileCard/:user_id', controller.getProfileCardsByUser)
-router.get('/profile/:user_id', controller.getOneProfileCard)
+router.get('/:user_id', controller.getOneProfileCard)
+router.put('/:user_id', StripToken, VerifyToken, controller.updateProfileCard)
 router.post('/:user_id', StripToken, VerifyToken, controller.createProfileCard)
 
 module.exports = router
