@@ -11,16 +11,16 @@ import {
   SET_USER,
   SET_TRIVIA_TOTAL,
   SET_GEN_STATUS,
-  CAPTION_FORM,
   PROFILE_CARDS_BY_HANDLE,
   SET_CURRENT_USER,
   SET_CURRENT_USER_DATA,
+  ADD_CURRENT_USER_PROFILE_CARD,
   SET_PROFILE_CARD,
   UPDATE_PROFILE_CARD,
   SET_CURRENT_USER_SELECTED_PROFILE_CARD,
   GET_ALL_USERS,
   GET_PROFILE_CARD
-} from '../src/store/types'
+} from './store/types'
 import './App.css'
 import './index.css'
 import { useState, useEffect, useReducer } from 'react'
@@ -35,7 +35,7 @@ const iState = {
   setProfile: [],
   profileCardsByHandle: [],
   triviaTotal: 0,
-  profileCard: [],
+  selectedProfileCard: [],
   allUsers: []
 }
 
@@ -54,39 +54,40 @@ const reducer = (state, action) => {
       return { ...state, triviaTotal: state.triviaTotal + 1 }
     case SET_USER:
       return { ...state, selectedUser: action.payload }
-    /*  case CAPTION_FORM:
-      return {
-        ...state,
-        profileCard: {
-          ...state.profileCard,
-          caption: { [action.payload.name]: action.payload.value }
-        }
-      }*/
     case SET_PROFILE_CARD:
-      return { ...state, profileCard: action.payload }
+      return { ...state, selectedProfileCard: action.payload }
     case PROFILE_CARDS_BY_HANDLE:
       return { ...state, profileCardsByHandle: action.payload }
     case GET_PROFILE_CARD:
       return { ...state, profileCard: action.payload }
     case GET_ALL_USERS:
       return { ...state, allUsers: action.payload }
+    case ADD_CURRENT_USER_PROFILE_CARD:
+      return {
+        ...state,
+        currentUserData: {
+          ...state.currentUserData,
+          ProfileCards: [state.currentUserData.ProfileCards, action.payload]
+        }
+      }
     case SET_CURRENT_USER_SELECTED_PROFILE_CARD:
-      return { ...state, currentUserSelectedProfile: action.payload }
+      return { ...state, currentUserSelectedProfileCard: action.payload }
     case UPDATE_PROFILE_CARD:
-      let updatedProfileCard = state.currentUserData.ProfileCard.filter(
+      let updatedProfileCard = state.currentUserData.ProfileCards.filter(
         (profileCard) => profileCard.id !== action.payload.id
       )
       return {
         ...state,
         currentUserData: {
           ...state.currentUserData,
-          ProfileCard: [...updatedProfileCard, action.payload.ProfileCard]
+          ProfileCards: [...updatedProfileCard, action.payload.profileCard]
         }
       }
     default:
       return state
   }
 }
+
 function ProfilePage() {}
 //
 const App = () => {
@@ -100,16 +101,20 @@ const App = () => {
       const res = await axios.get(`${BASE_URL}/auth/session`)
 
       dispatch({ type: SET_CURRENT_USER, payload: res.data })
-      dispatch({ type: SET_CURRENT_USER_DATA, payload: res.data })
       dispatch({ type: SET_AUTHENTICATED, payload: true })
       history(`/home/${state.currentUser.handle}`)
+
       console.log(state.currentUserData)
+      console.log(state.selectedProfileCard)
     }
   }
   const logOut = () => {
     localStorage.clear()
-    dispatch({ type: SET_CURRENT_USER, payload: {} })
+
     dispatch({ type: SET_AUTHENTICATED, payload: false })
+    dispatch({ type: SET_CURRENT_USER, payload: {} })
+    dispatch({ type: SET_CURRENT_USER_DATA, payload: null })
+
     history('/login')
   }
 
@@ -129,7 +134,6 @@ const App = () => {
             <Login
               authenticated={state.authenticated}
               currentUser={state.currentUser}
-              profileCard={state.profileCard}
               setProfile={state.setProfile}
               genStatus={state.genStatus}
               appDispatch={dispatch}
@@ -137,19 +141,18 @@ const App = () => {
           }
         ></Route>
         <Route
-          path={`/home/:handle`}
+          path={`/home/:${state.currentUser.handle}`}
           element={
             <Home
               authenticated={state.authenticated}
-              profileCard={state.profileCard}
+              selectedProfileCard={state.selectedProfileCard}
               currentUser={state.currentUser}
-              triviaTotal={state.triviaTotal}
               currentUserData={state.currentUserData}
+              triviaTotal={state.triviaTotal}
               currentUserSelectedProfileCard={
                 state.currentUserSelectedProfileCard
               }
               profileCardsByHandle={state.profileCardsByHandle}
-              setProfile={state.setProfile}
               genStatus={state.genStatus}
               selectedUser={state.selectedUser}
               appDispatch={dispatch}
@@ -161,7 +164,7 @@ const App = () => {
           path="/profile"
           element={
             <Profile
-              dispatch={dispatch}
+              appDispatch={dispatch}
               profileCardsByHandle={state.profileCardsByHandle}
               selectedUser={state.selectedUser}
               genStatus={state.genStatus}
@@ -180,6 +183,10 @@ const App = () => {
               currentUser={state.currentUser}
               triviaTotal={state.triviaTotal}
               currentUserData={state.currentUserData}
+              selectedProfileCard={state.selectedProfileCard}
+              currentUserSelectedProfileCard={
+                state.currentUserSelectedProfileCard
+              }
             />
           }
         ></Route>

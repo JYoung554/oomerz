@@ -12,8 +12,7 @@ const {
   PROFILE_CARDS_BY_HANDLE,
   GET_PROFILE_CARD,
   SET_USER,
-  RESET_LOGIN,
-  SET_PROFILE_CARD
+  RESET_LOGIN
 } = require('../store/types')
 
 const iState = {
@@ -46,14 +45,8 @@ const reducer = (state, action) => {
 
 const Login = (props) => {
   const [state, dispatch] = useReducer(reducer, iState)
-  const {
-    profileCard,
-    caption,
-    genStatus,
-    triviaTotal,
-    profileCardsByHandle,
-    currentUserData
-  } = props
+  const { caption, currentUser, genStatus, triviaTotal, profileCardsByHandle } =
+    props
   const loginForm = state.loginForm
 
   const history = useNavigate()
@@ -80,11 +73,9 @@ const Login = (props) => {
         type: RESET_LOGIN
       })
       props.appDispatch({ type: SET_CURRENT_USER, payload: res.data.user })
-      props.appDispatch({ type: SET_CURRENT_USER_DATA, payload: res.data.user })
       props.appDispatch({ type: SET_USER, payload: res.data.user })
-
       props.appDispatch({ type: SET_AUTHENTICATED, payload: true })
-
+      console.log(selectedUser)
       history(`/home/${res.data.user.handle}`)
     } catch (error) {
       console.log(error)
@@ -94,7 +85,7 @@ const Login = (props) => {
 
   return (
     <div>
-      <LoginForm {...loginProps} {...profileCard} />
+      <LoginForm {...loginProps} />
     </div>
   )
 }

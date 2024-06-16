@@ -3,16 +3,17 @@ import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Button, Grid, Card, Icon, Image } from 'semantic-ui-react'
 import { useState, useReducer, useEffect } from 'react'
+import genText from '../pages/Trivia'
 import { BASE_URL } from '../globals'
+
 const {
   SET_CURRENT_USER_DATA,
-  SET_PROFILE,
   SET_USER,
   SET_PROFILE_CARD,
   GET_PROFILE_CARD,
+  ADD_CURRENT_USER_PROFILE_CARD,
   CAPTION_FORM,
   SUBMIT_CAPTION,
-  SET_TRIVIA_TOTAL,
   PROFILE_CARDS_BY_HANDLE,
   SELECT_COMMENT,
   UPDATE_PROFILE_CARD,
@@ -20,7 +21,6 @@ const {
 } = require('../store/types')
 
 const iState = {
-  users: [],
   captionForm: '',
   clickedPostComment: false,
   submittedCaption: false
@@ -40,99 +40,52 @@ const reducer = (state, action) => {
 }
 
 const Home = (props) => {
-  let { handle } = useParams()
-  const history = useNavigate()
-  const [userCard, setUserCard] = useState([])
-  const [isUpdating, setIsUpdating] = useState(false)
-  const [profileCards, setProfileCards] = useState([])
   const [state, dispatch] = useReducer(reducer, iState)
   const {
     currentUser,
     currentUserData,
     currentUserSelectedProfileCard,
-    profileCard,
+    selectedProfileCard,
     profileCardsByHandle,
     selectedUser,
     appDispatch,
     triviaTotal,
     genStatus
   } = props
+
+  const history = useNavigate()
+  const [userCard, setUserCard] = useState(0)
+  const [isUpdating, setIsUpdating] = useState(false)
+  const [profileCards, setProfileCards] = useState([])
+
   const getProfile = async () => {
     try {
-      console.log(state.captionForm)
       const res = await axios.get(`${BASE_URL}/home/${currentUser.handle}`)
       if (!currentUserData && res.data) {
         appDispatch({ type: SET_CURRENT_USER_DATA, payload: res.data })
-        appDispatch({ type: SET_PROFILE_CARD, payload: res.data.ProfileCard })
-
-        //appDispatch({ type: GET_PROFILE_CARD, payload: res.data })
-      }
-      if (!selectedUser && res.data) {
+        appDispatch({ type: SET_PROFILE_CARD, payload: res.data })
         appDispatch({ type: SET_USER, payload: res.data })
-        appDispatch({
-          type: PROFILE_CARDS_BY_HANDLE,
-          payload: res.data.ProfileCards
-        })
-        //appDispatch({ type: GET_PROFILE_CARD, payload: res.data })
-        console.log(res.data)
-      } else if (selectedUser && selectedUser.handle !== res.data.handle) {
-        appDispatch({ type: SET_USER, payload: res.data })
-        appDispatch({
-          type: PROFILE_CARDS_BY_HANDLE,
-          payload: res.data.ProfileCards
-        })
-        console.log(res.data)
       }
-      console.log(currentUserData)
     } catch (error) {
       console.log(error)
     }
+
+    console.log(currentUserData)
+    console.log(selectedProfileCard)
   }
 
+  console.log(getProfile())
   const getAllProfileCards = async () => {
     const res = await axios.get(
-      `${BASE_URL}/home/profileCard/${selectedUser.id}`
+      `${BASE_URL}/home/profileCard/${currentUser.id}`
     )
-    appDispatch({ type: GET_PROFILE_CARD, payload: res.data })
-    //appDispatch({ type: SET_CURRENT_USER_DATA, payload: res.data })
-    //appDispatch({ type: SET_PROFILE_CARD, payload: res.data })
-    setProfileCards(res.data.ProfileCard)
-    console.log(res.data.ProfileCard)
-  }
+    appDispatch({ type: SET_PROFILE_CARD, payload: res.data })
 
-  /*const handleChange = (e) => {
-    dispatch({
-      type: CAPTION_FORM,
-      payload: { name: e.target.name, value: e.target.value }
-    })
-  }*/
-  const handleSubmit = async () => {
-    try {
-      const res = await axios.post(
-        `${BASE_URL}/home/:handle`,
-        profileCard.caption
-      )
-      if (!selectedUser && res.data) {
-        appDispatch({ type: SET_USER, payload: res.data })
-        appDispatch({
-          type: PROFILE_CARDS_BY_HANDLE,
-          payload: res.data.ProfileCards
-        })
-        console.log(selectedUser.id)
-      } else if (selectedUser && selectedUser.handle !== res.data.handle) {
-        appDispatch({ type: SET_USER, payload: res.data })
-        appDispatch({
-          type: PROFILE_CARDS_BY_HANDLE,
-          payload: res.data.ProfileCards
-        })
-      }
-    } catch (error) {
-      console.log(error)
-    }
+    console.log(profileCards)
   }
 
   const getProfileCardsByHandle = async () => {
-    const res = await axios.get(`${BASE_URL}/home/${selectedUser.handle}`)
+    const res = await axios.get(`${BASE_URL}/home/${currentUser.handle}`)
     dispatch({ type: SET_PROFILE_CARD, payload: res.data.ProfileCards })
     history('/profile')
   }
@@ -152,11 +105,11 @@ const Home = (props) => {
         caption: state.captionForm,
         genStatus: genStatus,
         triviaTotal: state.triviaTotal,
-        userId: selectedUser.id
+        userId: currentUser.id
       })
       dispatch({ type: SUBMIT_CAPTION, payload: true })
       dispatch({ type: SELECT_COMMENT, payload: !state.clickedPostComment })
-      appDispatch({ type: GET_PROFILE_CARD, payload: res.data.ProfileCard })
+      appDispatch({ type: ADD_CURRENT_USER_PROFILE_CARD, payload: res.data })
       appDispatch({
         type: PROFILE_CARDS_BY_HANDLE,
         payload: [
@@ -174,51 +127,6 @@ const Home = (props) => {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  const updateProfileCardSubmit = async (req, res) => {
-    try {
-      const res = await axios.put(`${BASE_URL}/home/${selectedUser.id}`, {
-        caption: state.caption,
-        genStatus: genStatus,
-        triviaTotal: triviaTotal
-      })
-      console.log(res.data[1][0])
-      const profileCard = res.data[1][0]
-      appDispatch({
-        type: UPDATE_PROFILE_CARD,
-        payload: { profileCard: profileCard, id: profileCard.id }
-      })
-      appDispatch({
-        type: SET_CURRENT_USER_SELECTED_PROFILE_CARD,
-        payload: {
-          ...currentUserSelectedProfileCard,
-          caption: state.caption,
-          genStatus: genStatus,
-          triviaTotal: triviaTotal
-        }
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const renderProfile = async () => {
-    return (
-      <div>
-        {state.clickedPostComment && renderProfileForm()}
-        <button
-          onClick={() =>
-            dispatch({
-              type: SELECT_COMMENT,
-              payload: !state.clickedPostComment
-            })
-          }
-        >
-          {state.clickedPostComment ? 'Cancel' : 'click'}
-        </button>
-      </div>
-    )
   }
 
   const getTrivia = async () => {
@@ -242,20 +150,11 @@ const Home = (props) => {
     )
   }
 
-  const renderProfileAttributes = () => {
-    return currentUserData.ProfileCard.map((profileCard, idx) => (
-      <div class="profile-main-container" key={`${profileCard.id}`}>
-        <p>{profileCard.caption}</p>
-        <p>{profileCard.triviaTotal}</p>
-        <p>{profileCard.genStatus}</p>
-      </div>
-    ))
-  }
-
   useEffect(() => {
     getProfile()
-    //getAllProfileCards()
-  }, [selectedUser, profileCardsByHandle, currentUser, currentUserData])
+    console.log(selectedUser)
+    console.log(currentUserSelectedProfileCard)
+  }, [currentUserData])
 
   return currentUser && currentUserData ? (
     <div class="main-container">
@@ -274,28 +173,29 @@ const Home = (props) => {
                   alt={`Your Avatar ${currentUserData.handle}`}
                 ></img>
               </button>
-              <p>{currentUserData.handle}</p>
-              <p>{currentUserData}</p>
-              <p>Generation {currentUserData}</p>
-              <p>Trivia : {currentUserData}</p>
+              <p></p>
+              <p></p>
+              <p>{currentUserData.ProfileCards[0].caption}</p>
+              <p>Generation: {currentUserSelectedProfileCard.genStatus}</p>
+              <p>Trivia : {currentUserSelectedProfileCard.triviaTotal}</p>
             </Card>
           </Grid.Column>
-          {userCard.caption !== '' ? (
-            <button class="home-button" onClick={(e) => getTrivia(e)}>
-              Start Trivia
-            </button>
-          ) : (
-            <p>{'Type a caption to get started!'}</p>
-          )}
         </Grid.Row>
-
+        {renderProfileForm()}
+        <button
+          class="logOut-button"
+          onClick={(e) => {
+            getTrivia(e)
+          }}
+        >
+          Start Trivia
+        </button>
         <button class="logOut-button" onClick={props.logOut}>
           Log Out
         </button>
       </Grid>
-      {renderProfileForm()}
-      {renderProfile()}
-      {renderProfileAttributes()}
+
+      <div></div>
     </div>
   ) : (
     <div>

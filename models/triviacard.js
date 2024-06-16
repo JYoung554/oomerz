@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      TriviaCard.belongsTo(models.User, {
-        foreignKey: 'userId'
+      TriviaCard.belongsTo(models.ProfileCard, {
+        foreignKey: 'profileCardId'
       })
     }
   }
@@ -19,11 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       genStatus: DataTypes.STRING,
       triviaTotal: DataTypes.INTEGER,
-      userId: {
+      profileCardId: {
         type: DataTypes.INTEGER,
         onDelete: 'CASCADE',
         references: {
-          model: 'users',
+          model: 'profileCards',
           key: 'id'
         }
       }

@@ -30,17 +30,16 @@ const reducer = (state, action) => {
       return { ...state, submittedAnswer: action.payload }
     case CLICKED_POST_ANSWER:
       return { ...state, clickedPostAnswer: action.payload }
-    //case SET_GEN_STATUS:
-    //return { ...state, genStatus: action.payload }
     default:
       return state
   }
 }
 
 const Trivia = (props) => {
-  let {
+  const {
     currentUser,
     currentUserData,
+    selectedProfileCard,
     currentUserSelectedProfileCard,
     selectedUser,
     appDispatch,
@@ -50,13 +49,15 @@ const Trivia = (props) => {
   const history = useNavigate()
   let handle = useParams()
   const [trivia, setTriviaQuestions] = useState(0)
-  const [user, setUser] = useState([])
-  const [triviaTotalNumber, setTriviaTotalNumber] = useState(0)
+  const [user, setUser] = useState('')
+  const [triviaTotalNumber, setTriviaTotalNumber] = useState(triviaTotal)
   const [boomer, setBoomer] = useState(0)
   const [genX, setGenX] = useState(0)
   const [millennial, setMillennial] = useState(0)
   const [zoomer, setZoomer] = useState(0)
-  const [genText, setGenText] = useState('')
+  const [genText, setGenText] = useState(
+    currentUserSelectedProfileCard.genStatus
+  )
   const [score, setScore] = useState(0)
   const [showScore, setShowScore] = useState(false)
   const [state, dispatch] = useReducer(reducer, iState)
@@ -82,18 +83,14 @@ const Trivia = (props) => {
 
   const postTrivia = async () => {
     try {
-      const res = await axios.put(`${BASE_URL}/home/${selectedUser.id}`, {
-        triviaTotal: triviaTotal,
-        genStatus: genStatus,
-        userId: selectedUser.id
+      const res = await axios.put(`${BASE_URL}/home/${currentUser.id}`, {
+        triviaTotal: triviaTotalNumber,
+        genStatus: genText
       })
-      console.log(selectedUser.id)
-      appDispatch({ type: SET_TRIVIA_TOTAL, payload: res.data.triviaTotal })
-      appDispatch({
-        type: SET_GEN_STATUS,
-        payload: res.data.genStatus
-      })
+      console.log(currentUser.id)
+      console.log(user)
       console.log(res.data[1][0])
+      console.log(genStatus)
       const profileCard = res.data[1][0]
       appDispatch({
         type: UPDATE_PROFILE_CARD,
@@ -103,12 +100,11 @@ const Trivia = (props) => {
         type: SET_CURRENT_USER_SELECTED_PROFILE_CARD,
         payload: {
           ...currentUserSelectedProfileCard,
-          caption: state.caption,
-          genStatus: genStatus,
-          triviaTotal: triviaTotal
+          genStatus: genText,
+          triviaTotal: triviaTotalNumber
         }
       })
-      console.log(profileCard)
+      console.log(currentUserSelectedProfileCard.genStatus)
     } catch (error) {
       console.log(error)
     }
@@ -138,15 +134,17 @@ const Trivia = (props) => {
     }
 
     const nextQuestion = trivia + 1
+
     if (nextQuestion < questions.length) {
       setTriviaQuestions(nextQuestion)
       console.log(questions[trivia].answer)
-    } else {
       if (boomer > genX && boomer > millennial && boomer > zoomer) {
-        genStatus = 'boomer'
+        console.log(user)
+        setGenText('Boomer')
+        setTriviaTotalNumber(triviaTotal + 1)
       } else if (genX > boomer && genX > millennial && genX > zoomer) {
-        //genStatus = 'Gen X'
         console.log('Your gen Name is: Generation X')
+        setGenText('Generation X')
       } else if (
         millennial > boomer &&
         millennial > genX &&
@@ -158,15 +156,20 @@ const Trivia = (props) => {
         setGenText('Zoomer')
         console.log('Your gen Name is: Zoomer')
       }
+    } else {
       setShowScore(true)
-
-      history(`/home/${selectedUser.handle}`)
+      console.log(genText)
+      console.log(triviaTotalNumber)
       postTrivia()
+
+      history(`/home/${currentUser.handle}`)
     }
   }
 
   useEffect(() => {
     //getTriviaQuestions()
+    console.log(currentUserSelectedProfileCard.triviaTotal)
+    //console.log(selectedUser.id)
   }, [selectedUser])
   return questions.length ? (
     <div>

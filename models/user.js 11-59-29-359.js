@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.TriviaCard, {
         foreignKey: 'userId'
       })
-      User.hasOne(models.ProfileCard, {
+      User.hasMany(models.ProfileCard, {
         foreignKey: 'userId'
       })
     }

@@ -16,17 +16,13 @@ const createProfileCard = async (req, res) => {
 
 const getOneProfileCard = async (req, res) => {
   try {
-    let userId = parseInt(req.params.user_id)
-    const user = await User.findOne({
-      attributes: ['id', 'handle', 'avatarUrl'],
-      where: { userId: userId },
-      include: {
-        model: ProfileCard,
-        attributes: ['id', 'caption', 'genStatus', 'triviaTotal']
-      }
+    let profileCardId = parseInt(req.params.profileCard_id)
+    const profileCard = await ProfileCard.findOne({
+      attributes: ['id', 'caption', 'genStatus', 'triviaTotal'],
+      where: { profileCardId: profileCardId }
     })
-    res.send(user)
-    console.log(user)
+    res.send(profileCard)
+    console.log(profileCard)
   } catch (error) {
     throw error
   }
@@ -72,10 +68,23 @@ const getAllUsers = async (req, res) => {
 
 const getProfileCardsByUser = async (req, res) => {
   try {
-    let userId = parseInt(req.params.user_id)
-    let profileCards = await ProfileCard.findOne({
+    const userId = parseInt(req.params.user_id)
+    const profileCards = await ProfileCard.findAll({
       where: { userId: userId },
-      attributes: ['id', 'caption', 'genStatus', 'triviaTotal']
+      attributes: ['id', 'caption', 'genStatus', 'triviaTotal'],
+      include: [{ model: User, attributes: ['id', 'handle'] }]
+    })
+    res.send(profileCards)
+  } catch (error) {
+    throw error
+  }
+}
+
+const getProfileCards = async (req, res) => {
+  try {
+    const profileCards = await ProfileCard.findAll({
+      attributes: ['id', 'caption', 'genStatus', 'triviaTotal'],
+      include: [{ model: User, attributes: ['id', 'handle'] }]
     })
     res.send(profileCards)
   } catch (error) {
@@ -131,6 +140,7 @@ module.exports = {
   createProfileCard,
   getOneProfileCard,
   getProfileCardsByUser,
+  getProfileCards,
   getOneUser,
   getAllUsers,
   getPosts,

@@ -1,50 +1,74 @@
 import React from 'react'
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import { BASE_URL } from '../globals'
 import {
   PROFILE_CARDS_BY_HANDLE,
   SET_CURRENT_USER_DATA,
   SET_PROFILE_CARD,
   SET_CURRENT_USER,
-  SET_USER
+  SET_USER,
+  SET_USER_PROFILES,
+  SET_USER_PROFILE_CARDS
 } from '../store/types'
 
+const iState = {
+  users: [],
+  profileCards: []
+}
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case SET_USER_PROFILES:
+      return { ...state, users: action.payload }
+    case SET_USER_PROFILE_CARDS:
+      return { ...state, profileCards: action.payload }
+    default:
+      return state
+  }
+}
+
 const Profile = (props) => {
+  const [state, dispatch] = useReducer(reducer, iState)
   const {
-    dispatch,
     profileCardsByHandle,
     selectedUser,
     currentUser,
     appDispatch,
     currentUserData
   } = props
-
-  const [users, setUsers] = useState([])
+  const [profile, setProfile] = useState('')
   const [profileCards, setProfileCards] = useState([])
+  const [users, setUsers] = useState([])
   const getAllProfileCards = async () => {
-    const res = await axios.get(
-      `${BASE_URL}/home/profileCard/${selectedUser.id}`,
-      `${BASE_URL}/home`
-    )
-    console.log(selectedUser.id)
-    console.log(currentUserData.ProfileCard)
-    setProfileCards(res.data)
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/home/profileCard/${selectedUser.id}`
+      )
+      setProfileCards(res.data)
+      console.log(setProfileCards)
+
+      console.log(res.data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const getAllUsers = async () => {
-    const res = await axios.get(`${BASE_URL}/home`)
+    try {
+      const res = await axios.get(`${BASE_URL}/home`)
+      setUsers(res.data)
+    } catch (error) {
+      console.log(error)
+    }
 
-    dispatch({ type: SET_CURRENT_USER_DATA, payload: res.data })
-    dispatch({ type: SET_PROFILE_CARD, payload: res.data })
-
-    console.log(res.data)
-    setUsers(res.data)
+    console.log()
   }
 
   useEffect(() => {
     getAllProfileCards()
     getAllUsers()
+    console.log(profileCards)
   }, [selectedUser])
 
   return (

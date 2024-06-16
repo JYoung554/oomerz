@@ -1,4 +1,5 @@
 export const SET_AUTHENTICATED = 'set_authenticated'
+export const ADD_CURRENT_USER_PROFILE_CARD = 'add_current_user_profile_card'
 export const SET_PROFILE_CARD = 'set_profile_card'
 export const GET_PROFILE_CARD = 'get_profile_card'
 export const REGISTER_FORM = 'register_form'
@@ -26,6 +27,8 @@ export const GET_ALL_USERS = 'get_all_users'
 export const CLICKED_POST_COMMENT = 'clicked_post_comment'
 export const SELECT_COMMENT = 'select_comment'
 export const UPDATE_PROFILE_CARD = 'update_profile_card'
+export const SET_USER_PROFILES = 'set_user_profiles'
+export const SET_USER_PROFILE_CARDS = 'set_user_profile_cards'
 export const SET_CURRENT_USER_SELECTED_PROFILE_CARD =
   'set_current_user_selected_profile_card'
 
