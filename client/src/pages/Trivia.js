@@ -15,6 +15,7 @@ import { useEffect, useState, useReducer } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import questions from '../store/triviaList'
 
+
 const iState = {
   answerForm: '',
   submittedAnswer: false,
@@ -67,6 +68,8 @@ const Trivia = (props) => {
     setTriviaQuestions(res)
   }*/
 
+  const captionState = ''
+
   const getUser = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/home/${handle}`)
@@ -85,7 +88,8 @@ const Trivia = (props) => {
     try {
       const res = await axios.put(`${BASE_URL}/home/${currentUser.id}`, {
         triviaTotal: triviaTotalNumber,
-        genStatus: genText
+        genStatus: genText,
+        caption: captionState
       })
       console.log(currentUser.id)
       console.log(user)
@@ -101,10 +105,12 @@ const Trivia = (props) => {
         payload: {
           ...currentUserSelectedProfileCard,
           genStatus: genText,
-          triviaTotal: triviaTotalNumber
+          triviaTotal: triviaTotalNumber,
+          caption: captionState
         }
       })
       console.log(currentUserSelectedProfileCard.genStatus)
+      console.log(currentUserSelectedProfileCard)
     } catch (error) {
       console.log(error)
     }

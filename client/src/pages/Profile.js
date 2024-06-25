@@ -78,13 +78,16 @@ const Profile = (props) => {
           {profileCards.map((profileCard, idx) => (
             <div class="profile-main-container" key={`${profileCard.id}`}>
               <p>{profileCard.User.handle}</p>
-              <img
-                src={profileCard.User.avatarUrl}
-                alt={`Your avatar ${profileCard.User.handle}`}
-              ></img>
+              <button class="profile-button-list">
+                <img
+                  class="profile-img-list"
+                  src={profileCard.User.avatarUrl}
+                  alt={`Your avatar ${profileCard.User.handle}`}
+                ></img>
+              </button>
               <p>{profileCard.caption}</p>
-              <p>{profileCard.triviaTotal}</p>
               <p>{profileCard.genStatus}</p>
+              <p>{profileCard.triviaTotal}</p>
             </div>
           ))}
         </div>

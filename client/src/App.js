@@ -67,7 +67,7 @@ const reducer = (state, action) => {
         ...state,
         currentUserData: {
           ...state.currentUserData,
-          ProfileCards: [state.currentUserData.ProfileCards, action.payload]
+          ProfileCards: action.payload
         }
       }
     case SET_CURRENT_USER_SELECTED_PROFILE_CARD:

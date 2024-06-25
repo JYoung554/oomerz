@@ -5,6 +5,7 @@ import { Button, Grid, Card, Icon, Image } from 'semantic-ui-react'
 import { useState, useReducer, useEffect } from 'react'
 import genText from '../pages/Trivia'
 import { BASE_URL } from '../globals'
+import { profileCards, setProfileCards } from '../pages/Profile'
 
 const {
   SET_CURRENT_USER_DATA,
@@ -57,7 +58,9 @@ const Home = (props) => {
   const [userCard, setUserCard] = useState(0)
   const [isUpdating, setIsUpdating] = useState(false)
   const [profileCards, setProfileCards] = useState([])
-
+  const [captionText, setCaptionText] = useState(
+    currentUserSelectedProfileCard.caption
+  )
   const getProfile = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/home/${currentUser.handle}`)
@@ -100,7 +103,7 @@ const Home = (props) => {
   const handleProfileCardSubmit = async (e) => {
     e.preventDefault()
     try {
-      console.log(state.captionForm)
+      console.log(currentUserSelectedProfileCard.caption)
       const res = await axios.post(`${BASE_URL}/home/${currentUser.id}`, {
         caption: state.captionForm,
         genStatus: genStatus,
@@ -110,6 +113,13 @@ const Home = (props) => {
       dispatch({ type: SUBMIT_CAPTION, payload: true })
       dispatch({ type: SELECT_COMMENT, payload: !state.clickedPostComment })
       appDispatch({ type: ADD_CURRENT_USER_PROFILE_CARD, payload: res.data })
+      appDispatch({
+        type: SET_CURRENT_USER_SELECTED_PROFILE_CARD,
+        payload: {
+          ...currentUserSelectedProfileCard,
+          caption: state.captionForm
+        }
+      })
       appDispatch({
         type: PROFILE_CARDS_BY_HANDLE,
         payload: [
@@ -122,20 +132,65 @@ const Home = (props) => {
           }
         ]
       })
-      console.log(selectedUser)
+      console.log(currentUserData.ProfileCard)
       console.log(currentUserData)
     } catch (error) {
       console.log(error)
     }
   }
 
+  const updateCaption = async (e) => {
+    e.preventDefault()
+    try {
+      const res = await axios.put(`${BASE_URL}/home/${currentUser.id}`, {
+        caption: state.captionForm
+      })
+      dispatch({ type: SUBMIT_CAPTION, payload: true })
+      dispatch({ type: SELECT_COMMENT, payload: !state.clickedPostComment })
+      appDispatch({ type: ADD_CURRENT_USER_PROFILE_CARD, payload: res.data })
+      const profileCard = res.data[1][0]
+      console.log(profileCard)
+      appDispatch({
+        type: UPDATE_PROFILE_CARD,
+        payload: {
+          profileCard: profileCard,
+          id: profileCard.id,
+          caption: profileCard.caption
+        }
+      })
+      appDispatch({
+        type: SET_CURRENT_USER_SELECTED_PROFILE_CARD,
+        payload: {
+          ...currentUserSelectedProfileCard,
+          caption: state.captionForm
+        }
+      })
+      appDispatch({
+        type: PROFILE_CARDS_BY_HANDLE,
+        payload: [
+          ...profileCardsByHandle,
+          {
+            id: res.data.id,
+            caption: res.data.caption,
+            genStatus: res.data.genStatus,
+            triviaTotal: res.data.triviaTotal
+          }
+        ]
+      })
+      console.log(currentUserData.ProfileCard)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const getTrivia = async () => {
-    console.log(currentUser)
+    console.log(currentUserData.ProfileCard)
+    console.log(currentUserSelectedProfileCard)
     history(`/trivia`)
   }
 
   const renderProfileForm = () => {
-    return (
+    return currentUserSelectedProfileCard.caption === undefined ? (
       <form class="form-style" onSubmit={(e) => handleProfileCardSubmit(e)}>
         <input
           type="text"
@@ -147,12 +202,26 @@ const Home = (props) => {
           }
         ></input>
       </form>
+    ) : currentUserSelectedProfileCard.caption !== undefined ? (
+      <form class="form-style" onSubmit={(e) => updateCaption(e)}>
+        <input
+          type="text"
+          name="captionForm"
+          placeholder="Type a caption"
+          value={state.captionForm}
+          onChange={(e) =>
+            dispatch({ type: CAPTION_FORM, payload: e.target.value })
+          }
+        ></input>
+      </form>
+    ) : (
+      'An error has occured'
     )
   }
 
   useEffect(() => {
     getProfile()
-    console.log(selectedUser)
+    console.log(currentUserSelectedProfileCard.caption)
     console.log(currentUserSelectedProfileCard)
   }, [currentUserData])
 
@@ -175,7 +244,12 @@ const Home = (props) => {
               </button>
               <p></p>
               <p></p>
-              <p>{currentUserData.ProfileCards[0].caption}</p>
+              {currentUserData.ProfileCard !== null ? (
+                <p>{currentUserSelectedProfileCard.caption}</p>
+              ) : (
+                'Type a Caption here!'
+              )}
+
               <p>Generation: {currentUserSelectedProfileCard.genStatus}</p>
               <p>Trivia : {currentUserSelectedProfileCard.triviaTotal}</p>
             </Card>

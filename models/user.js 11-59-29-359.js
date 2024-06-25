@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       avatarUrl: {
         type: DataTypes.STRING,
-        defaultValue: 'https://imgur.com/od6ga6F'
+        defaultValue: 'https://imgur.com/31zf8dy'
       }
       /* profileCardId: {
         type: DataTypes.INTEGER,
