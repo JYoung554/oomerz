@@ -31,22 +31,3 @@ export const SET_USER_PROFILES = 'set_user_profiles'
 export const SET_USER_PROFILE_CARDS = 'set_user_profile_cards'
 export const SET_CURRENT_USER_SELECTED_PROFILE_CARD =
   'set_current_user_selected_profile_card'
-
-  /*{state.clickedPostComment === true ? (
-    <form
-      class="form-style"
-      onSubmit={(e) => handleProfileCardSubmit(e)}
-    >
-      <input
-        type="text"
-        name="captionForm"
-        placeholder="Type a caption"
-        value={state.captionForm}
-        onChange={(e) =>
-          dispatch({ type: CAPTION_FORM, payload: e.target.value })
-        }
-      ></input>
-    </form>
-  ) : (
-    <p>{''}</p>
-  )}*/

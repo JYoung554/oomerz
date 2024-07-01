@@ -72,7 +72,7 @@ const getProfileCardsByUser = async (req, res) => {
     const profileCards = await ProfileCard.findAll({
       where: { userId: userId },
       attributes: ['id', 'caption', 'genStatus', 'triviaTotal'],
-      include: [{ model: User, attributes: ['id', 'handle'] }]
+      include: [{ model: User, attributes: ['id', 'handle', 'avatarUrl'] }]
     })
     res.send(profileCards)
   } catch (error) {
@@ -114,6 +114,31 @@ const updateProfileCard = async (req, res) => {
   }
 }
 
+const updateProfileCardsByUser = async (req, res) => {
+  try {
+    const user_id = parseInt(req.params.user_id)
+    const profileCards = await ProfileCard.update(req.body, {
+      where: { id: user_id },
+      attributes: ['id', 'caption', 'genStatus', 'triviaTotal'],
+      include: [{ model: User, attributes: ['id', 'handle'] }]
+    })
+    res.send(profileCards)
+  } catch (error) {
+    throw error
+  }
+}
+
+const deleteUser = async (req, res) => {
+  try {
+    await User.destroy({
+      where: { handle: req.params.handle }
+    })
+    res.send({ message: `deleted user with handle${req.params.handle} ` })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const deleteProfile = async (res, req) => {
   try {
     let user_id = parseInt(req.params.user_id)
@@ -140,11 +165,13 @@ module.exports = {
   createProfileCard,
   getOneProfileCard,
   getProfileCardsByUser,
+  updateProfileCardsByUser,
   getProfileCards,
   getOneUser,
   getAllUsers,
   getPosts,
   updateProfileCard,
+  deleteUser,
   deleteProfile,
   getAllTriviaCards
 }

@@ -31,17 +31,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       avatarUrl: {
         type: DataTypes.STRING,
-        defaultValue: 'https://imgur.com/31zf8dy'
+        defaultValue: 'https://i.imgur.com/31zf8dy.png'
       }
-      /* profileCardId: {
-        type: DataTypes.INTEGER,
-        onDelete: 'CASCADE',
-        allowNull: false,
-        references: {
-          model: 'profileCards',
-          key: 'id'
-        }
-      }*/
     },
     {
       sequelize,

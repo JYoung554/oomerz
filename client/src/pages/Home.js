@@ -3,20 +3,18 @@ import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Button, Grid, Card, Icon, Image } from 'semantic-ui-react'
 import { useState, useReducer, useEffect } from 'react'
-import genText from '../pages/Trivia'
 import { BASE_URL } from '../globals'
-import { profileCards, setProfileCards } from '../pages/Profile'
 
 const {
   SET_CURRENT_USER_DATA,
   SET_USER,
   SET_PROFILE_CARD,
-  GET_PROFILE_CARD,
   ADD_CURRENT_USER_PROFILE_CARD,
   CAPTION_FORM,
   SUBMIT_CAPTION,
   PROFILE_CARDS_BY_HANDLE,
   SELECT_COMMENT,
+  SET_USER_PROFILE_CARDS,
   UPDATE_PROFILE_CARD,
   SET_CURRENT_USER_SELECTED_PROFILE_CARD
 } = require('../store/types')
@@ -24,6 +22,7 @@ const {
 const iState = {
   captionForm: '',
   clickedPostComment: false,
+  profileCard: [],
   submittedCaption: false
 }
 
@@ -33,6 +32,8 @@ const reducer = (state, action) => {
       return { ...state, captionForm: action.payload }
     case SUBMIT_CAPTION:
       return { ...state, submittedCaption: action.payload }
+    case SET_USER_PROFILE_CARDS:
+      return { ...state, profileCard: action.payload }
     case SELECT_COMMENT:
       return { ...state, clickedPostComment: action.payload }
     default:
@@ -49,18 +50,15 @@ const Home = (props) => {
     selectedProfileCard,
     profileCardsByHandle,
     selectedUser,
+    logOut,
     appDispatch,
-    triviaTotal,
     genStatus
   } = props
 
   const history = useNavigate()
-  const [userCard, setUserCard] = useState(0)
-  const [isUpdating, setIsUpdating] = useState(false)
+
   const [profileCards, setProfileCards] = useState([])
-  const [captionText, setCaptionText] = useState(
-    currentUserSelectedProfileCard.caption
-  )
+
   const getProfile = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/home/${currentUser.handle}`)
@@ -68,6 +66,7 @@ const Home = (props) => {
         appDispatch({ type: SET_CURRENT_USER_DATA, payload: res.data })
         appDispatch({ type: SET_PROFILE_CARD, payload: res.data })
         appDispatch({ type: SET_USER, payload: res.data })
+        console.log(profileCards)
       }
     } catch (error) {
       console.log(error)
@@ -78,26 +77,11 @@ const Home = (props) => {
   }
 
   console.log(getProfile())
-  const getAllProfileCards = async () => {
-    const res = await axios.get(
-      `${BASE_URL}/home/profileCard/${currentUser.id}`
-    )
-    appDispatch({ type: SET_PROFILE_CARD, payload: res.data })
-
-    console.log(profileCards)
-  }
 
   const getProfileCardsByHandle = async () => {
     const res = await axios.get(`${BASE_URL}/home/${currentUser.handle}`)
     dispatch({ type: SET_PROFILE_CARD, payload: res.data.ProfileCards })
     history('/profile')
-  }
-
-  const targetProfileCard = async () => {
-    const res = await axios.get(`${BASE_URL}/home/${selectedUser.id}}`)
-  }
-  const handleUpdating = () => {
-    setIsUpdating(!isUpdating)
   }
 
   const handleProfileCardSubmit = async (e) => {
@@ -142,13 +126,16 @@ const Home = (props) => {
   const updateCaption = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.put(`${BASE_URL}/home/${currentUser.id}`, {
-        caption: state.captionForm
-      })
+      const res = await axios.put(
+        `${BASE_URL}/home/profileCard/${selectedUser.id},`,
+        {
+          caption: state.captionForm
+        }
+      )
       dispatch({ type: SUBMIT_CAPTION, payload: true })
       dispatch({ type: SELECT_COMMENT, payload: !state.clickedPostComment })
       appDispatch({ type: ADD_CURRENT_USER_PROFILE_CARD, payload: res.data })
-      const profileCard = res.data[1][0]
+      const profileCard = res.data
       console.log(profileCard)
       appDispatch({
         type: UPDATE_PROFILE_CARD,
@@ -166,6 +153,13 @@ const Home = (props) => {
         }
       })
       appDispatch({
+        type: SET_USER_PROFILE_CARDS,
+        payload: {
+          ...profileCard,
+          caption: state.captionForm
+        }
+      })
+      appDispatch({
         type: PROFILE_CARDS_BY_HANDLE,
         payload: [
           ...profileCardsByHandle,
@@ -178,6 +172,15 @@ const Home = (props) => {
         ]
       })
       console.log(currentUserData.ProfileCard)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const deleteUser = async (e) => {
+    e.preventDefault()
+    try {
+      await axios.delete(`${BASE_URL}/home/${currentUser.handle}`)
+      logOut()
     } catch (error) {
       console.log(error)
     }
@@ -202,7 +205,7 @@ const Home = (props) => {
           }
         ></input>
       </form>
-    ) : currentUserSelectedProfileCard.caption !== undefined ? (
+    ) : currentUserSelectedProfileCard.caption != undefined ? (
       <form class="form-style" onSubmit={(e) => updateCaption(e)}>
         <input
           type="text"
@@ -223,7 +226,7 @@ const Home = (props) => {
     getProfile()
     console.log(currentUserSelectedProfileCard.caption)
     console.log(currentUserSelectedProfileCard)
-  }, [currentUserData])
+  }, [currentUserData, state.profileCard])
 
   return currentUser && currentUserData ? (
     <div class="main-container">
@@ -269,7 +272,15 @@ const Home = (props) => {
         </button>
       </Grid>
 
-      <div></div>
+      <div>
+        <button
+          onClick={(e) => {
+            deleteUser(e)
+          }}
+        >
+          Delete User
+        </button>
+      </div>
     </div>
   ) : (
     <div>

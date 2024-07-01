@@ -51,7 +51,7 @@ const reducer = (state, action) => {
     case SET_GEN_STATUS:
       return { ...state, genStatus: action.payload }
     case SET_TRIVIA_TOTAL:
-      return { ...state, triviaTotal: state.triviaTotal + 1 }
+      return { ...state, triviaTotal: action.payload }
     case SET_USER:
       return { ...state, selectedUser: action.payload }
     case SET_PROFILE_CARD:
@@ -88,7 +88,6 @@ const reducer = (state, action) => {
   }
 }
 
-function ProfilePage() {}
 //
 const App = () => {
   let { selectedUser } = useParams()
@@ -170,6 +169,9 @@ const App = () => {
               genStatus={state.genStatus}
               currentUser={state.currentUser}
               currentUserData={state.currentUserData}
+              currentUserSelectedProfileCard={
+                state.currentUserSelectedProfileCard
+              }
             />
           }
         ></Route>

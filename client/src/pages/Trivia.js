@@ -40,7 +40,6 @@ const Trivia = (props) => {
   const {
     currentUser,
     currentUserData,
-    selectedProfileCard,
     currentUserSelectedProfileCard,
     selectedUser,
     appDispatch,
@@ -51,7 +50,7 @@ const Trivia = (props) => {
   let handle = useParams()
   const [trivia, setTriviaQuestions] = useState(0)
   const [user, setUser] = useState('')
-  const [triviaTotalNumber, setTriviaTotalNumber] = useState(triviaTotal)
+  const [triviaTotalNumber, setTriviaTotalNumber] = useState(0)
   const [boomer, setBoomer] = useState(0)
   const [genX, setGenX] = useState(0)
   const [millennial, setMillennial] = useState(0)
@@ -62,34 +61,24 @@ const Trivia = (props) => {
   const [score, setScore] = useState(0)
   const [showScore, setShowScore] = useState(false)
   const [state, dispatch] = useReducer(reducer, iState)
-  /*const getTriviaQuestions = async () => {
-    const res = await axios.get(`${BASE_URL}/trivia`)
-    console.log(questions)
-    setTriviaQuestions(res)
-  }*/
 
-  const captionState = ''
-
-  const getUser = async () => {
+  const resetGenStatus = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/home/${handle}`)
-      if (!selectedUser && res.data) {
-        appDispatch({ type: SET_USER, payload: res.data })
-      } else if (selectedUser && selectedUser.handle !== res.data.handle) {
-        appDispatch({ type: SET_USER, payload: res.data })
-        console.log(currentUser)
-      }
+      await axios.put(`${BASE_URL}/home/${currentUser.id}`, {
+        genStatus: genText
+      })
+      setGenText('')
     } catch (error) {
       console.log(error)
     }
   }
-
   const postTrivia = async () => {
     try {
+      let triviaStart = 0
+      triviaStart++
       const res = await axios.put(`${BASE_URL}/home/${currentUser.id}`, {
-        triviaTotal: triviaTotalNumber,
-        genStatus: genText,
-        caption: captionState
+        triviaTotal: triviaStart,
+        genStatus: genText
       })
       console.log(currentUser.id)
       console.log(user)
@@ -105,8 +94,7 @@ const Trivia = (props) => {
         payload: {
           ...currentUserSelectedProfileCard,
           genStatus: genText,
-          triviaTotal: triviaTotalNumber,
-          caption: captionState
+          triviaTotal: triviaStart++
         }
       })
       console.log(currentUserSelectedProfileCard.genStatus)
@@ -147,9 +135,8 @@ const Trivia = (props) => {
       if (boomer > genX && boomer > millennial && boomer > zoomer) {
         console.log(user)
         setGenText('Boomer')
-        setTriviaTotalNumber(triviaTotal + 1)
       } else if (genX > boomer && genX > millennial && genX > zoomer) {
-        console.log('Your gen Name is: Generation X')
+        console.log(genText)
         setGenText('Generation X')
       } else if (
         millennial > boomer &&
@@ -165,20 +152,32 @@ const Trivia = (props) => {
     } else {
       setShowScore(true)
       console.log(genText)
-      console.log(triviaTotalNumber)
+      currentUserSelectedProfileCard.triviaTotal++
+      setTriviaTotalNumber(triviaTotal + 1)
       postTrivia()
 
       history(`/home/${currentUser.handle}`)
     }
   }
 
+  const backToHome = async (e) => {
+    history(`/home/${currentUser.handle}`)
+  }
+
   useEffect(() => {
-    //getTriviaQuestions()
+    resetGenStatus()
+
     console.log(currentUserSelectedProfileCard.triviaTotal)
-    //console.log(selectedUser.id)
   }, [selectedUser])
   return questions.length ? (
     <div>
+      <button
+        onClick={(e) => {
+          backToHome(e)
+        }}
+      >
+        Back
+      </button>
       {showScore ? (
         <div>Trivia Completed!</div>
       ) : (
