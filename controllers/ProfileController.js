@@ -49,6 +49,18 @@ const getOneUser = async (req, res) => {
   }
 }
 
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.findAll({
+      attributes: ['id', 'handle', 'avatarUrl']
+    })
+    res.send(users)
+  } catch (error) {
+    throw error
+  }
+}
+
+
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll({
@@ -170,6 +182,7 @@ module.exports = {
   getOneUser,
   getAllUsers,
   getPosts,
+  getUsers,
   updateProfileCard,
   deleteUser,
   deleteProfile,

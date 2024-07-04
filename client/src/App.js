@@ -5,6 +5,8 @@ import Home from './pages/Home'
 import axios from 'axios'
 import Profile from './pages/Profile'
 import Trivia from './pages/Trivia'
+import Users from '../src/pages/Users'
+import Nav from '../src/components/Nav'
 import { BASE_URL } from './globals'
 import {
   SET_AUTHENTICATED,
@@ -125,6 +127,15 @@ const App = () => {
 
   return (
     <div className="App">
+      <header>
+        <Nav
+          authenticated={state.authenticated}
+          currentUser={state.currentUser}
+          currentUserData={state.currentUserData}
+          appDispatch={dispatch}
+          logOut={logOut}
+        ></Nav>
+      </header>
       <Routes>
         <Route path="/register" element={<Register />}></Route>
         <Route
@@ -191,6 +202,10 @@ const App = () => {
               }
             />
           }
+        ></Route>
+        <Route
+          path="/users"
+          element={<Users currentUser={state.currentUser} />}
         ></Route>
       </Routes>
     </div>

@@ -267,9 +267,6 @@ const Home = (props) => {
         >
           Start Trivia
         </button>
-        <button class="logOut-button" onClick={props.logOut}>
-          Log Out
-        </button>
       </Grid>
 
       <div>
