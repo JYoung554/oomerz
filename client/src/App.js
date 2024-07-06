@@ -6,6 +6,7 @@ import axios from 'axios'
 import Profile from './pages/Profile'
 import Trivia from './pages/Trivia'
 import Users from '../src/pages/Users'
+import UserPage from '../src/pages/UserPage'
 import Nav from '../src/components/Nav'
 import { BASE_URL } from './globals'
 import {
@@ -18,6 +19,7 @@ import {
   SET_CURRENT_USER_DATA,
   ADD_CURRENT_USER_PROFILE_CARD,
   SET_PROFILE_CARD,
+  GET_USER,
   UPDATE_PROFILE_CARD,
   SET_CURRENT_USER_SELECTED_PROFILE_CARD,
   GET_ALL_USERS,
@@ -35,6 +37,7 @@ const iState = {
   selectedUser: null,
   genStatus: 'None',
   setProfile: [],
+  user: {},
   profileCardsByHandle: [],
   triviaTotal: 0,
   selectedProfileCard: [],
@@ -64,6 +67,8 @@ const reducer = (state, action) => {
       return { ...state, profileCard: action.payload }
     case GET_ALL_USERS:
       return { ...state, allUsers: action.payload }
+    case GET_USER:
+      return { ...state, user: action.payload }
     case ADD_CURRENT_USER_PROFILE_CARD:
       return {
         ...state,
@@ -205,11 +210,28 @@ const App = () => {
         ></Route>
         <Route
           path="/users"
-          element={<Users currentUser={state.currentUser} />}
+          element={
+            <Users
+              currentUser={state.currentUser}
+              selectedUser={state.selectedUser}
+              user={state.user}
+              appDispatch={dispatch}
+            />
+          }
+        ></Route>
+        <Route
+          path="/user/:user_id"
+          element={
+            <UserPage
+              selectedUser={state.selectedUser}
+              currentUser={state.currentUser}
+              currentUserData={state.currentUserData}
+              appDispatch={dispatch}
+            ></UserPage>
+          }
         ></Route>
       </Routes>
     </div>
   )
 }
-
 export default App

@@ -28,6 +28,27 @@ const getOneProfileCard = async (req, res) => {
   }
 }
 
+const getUser = async (req, res) => {
+  try {
+    const handle = req.params.handle
+    const user = await User.findOne({
+      attributes: ['id', 'handle', 'avatarUrl'],
+      where: { handle: handle },
+      include: [
+        {
+          model: ProfileCard,
+          required: false,
+          attributes: ['id', 'caption', 'genStatus', 'triviaTotal']
+        }
+      ]
+    })
+    res.send(user)
+    console.log(user)
+  } catch (error) {
+    throw error
+  }
+}
+
 const getOneUser = async (req, res) => {
   try {
     let handle = req.params.handle
@@ -59,7 +80,6 @@ const getUsers = async (req, res) => {
     throw error
   }
 }
-
 
 const getAllUsers = async (req, res) => {
   try {
@@ -180,6 +200,7 @@ module.exports = {
   updateProfileCardsByUser,
   getProfileCards,
   getOneUser,
+  getUser,
   getAllUsers,
   getPosts,
   getUsers,

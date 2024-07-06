@@ -281,7 +281,6 @@ const Home = (props) => {
     </div>
   ) : (
     <div>
-      <p>Hello</p>
       <button class="logOut-button" onClick={props.logOut}>
         Log Out
       </button>

@@ -1,36 +1,28 @@
 import React from 'react'
 import axios from 'axios'
 import { useState, useEffect, useReducer } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { BASE_URL } from '../globals'
+import UserPage from '../pages/UserPage'
 import {
   PROFILE_CARDS_BY_HANDLE,
   SET_CURRENT_USER_DATA,
   SET_PROFILE_CARD,
   SET_CURRENT_USER,
   SET_USER,
+  GET_USER,
   SET_USER_PROFILES
 } from '../store/types'
 
-const iState = {
-  users: []
-}
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case SET_USER_PROFILES:
-      return { ...state, users: action.payload }
-    default:
-      return state
-  }
-}
-
 const Users = (props) => {
   const history = useNavigate()
-  const [state, dispatch] = useReducer(reducer, iState)
+  const handle = useParams()
+  const { user, currentUserData, appDispatch } = props
+
   const { selectedUser, currentUser } = props
-  const [profile, setProfile] = useState('')
+  const [profile, setProfile] = useState(user)
   const [profileCards, setProfileCards] = useState([])
+
   const [users, setUsers] = useState([])
 
   const getUsers = async () => {
@@ -43,9 +35,19 @@ const Users = (props) => {
 
     console.log()
   }
+  const getUser = (user) => {
+    appDispatch({ type: SET_USER, payload: user })
+    appDispatch({ type: PROFILE_CARDS_BY_HANDLE, payload: user })
+    console.log(user)
+    history(`/user/${user.id}`)
+  }
 
   const backToHome = async () => {
-    history(`/home/${currentUser.handle}`)
+    if (currentUser && currentUserData) {
+      history(`/home/${currentUser.handle}`)
+    } else {
+      history(`/login`)
+    }
   }
 
   useEffect(() => {
@@ -65,9 +67,9 @@ const Users = (props) => {
       {users.length ? (
         <div class="profile-list-container">
           {users.map((user, idx) => (
-            <div class="profile-main-container" key={`${user.id}`}>
+            <div class="profile-main-container" key={`${user.idx}`}>
               <p>{user.handle}</p>
-              <button class="profile-button-list">
+              <button class="profile-button-list" onClick={() => getUser(user)}>
                 <img
                   class="profile-img-list"
                   src={user.avatarUrl}
