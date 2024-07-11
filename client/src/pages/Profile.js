@@ -7,6 +7,7 @@ import {
   PROFILE_CARDS_BY_HANDLE,
   SET_CURRENT_USER_DATA,
   SET_PROFILE_CARD,
+  SET_CARD,
   SET_CURRENT_USER,
   SET_USER,
   SET_USER_PROFILES
@@ -30,6 +31,7 @@ const Profile = (props) => {
   const [state, dispatch] = useReducer(reducer, iState)
   const {
     profileCardsByHandle,
+    profileCard,
     selectedUser,
     currentUser,
     appDispatch,
@@ -37,17 +39,15 @@ const Profile = (props) => {
     currentUserSelectedProfileCard
   } = props
   const [profile, setProfile] = useState('')
-  const [profileCards, setProfileCards] = useState([])
+  //const [profileCards, setProfileCards] = useState([])
   const [users, setUsers] = useState([])
 
   const getAllProfileCards = async () => {
     try {
       const res = await axios.get(
-        `${BASE_URL}/home/profileCard/${selectedUser.id}`
+        `${BASE_URL}/home/profileCard/${profileCard.id}`
       )
-      setProfileCards(res.data)
-      console.log(setProfileCards)
-
+      appDispatch({ type: SET_CARD, payload: res.data })
       console.log(res.data)
     } catch (error) {
       console.log(error)
@@ -59,6 +59,7 @@ const Profile = (props) => {
       const res = await axios.get(`${BASE_URL}/home/${currentUser.handle}`)
       if (!currentUserData && res.data) {
         appDispatch({ type: SET_CURRENT_USER_DATA, payload: res.data })
+        appDispatch({ type: SET_CARD, payload: res.data.ProfileCard })
         appDispatch({ type: SET_PROFILE_CARD, payload: res.data })
         appDispatch({ type: SET_USER, payload: res.data })
       }
@@ -87,7 +88,7 @@ const Profile = (props) => {
   const deleteProfileCard = async (e) => {
     e.preventDefault()
     try {
-      await axios.delete(`${BASE_URL}/home/${currentUser.id}`)
+      await axios.delete(`${BASE_URL}/home/${currentUser.handle}`)
       history(`/home/${currentUser.handle}`)
     } catch (error) {
       console.log(error)
@@ -98,7 +99,7 @@ const Profile = (props) => {
     getProfile()
     getAllProfileCards()
     getAllUsers()
-    console.log(profileCards)
+    console.log(profileCard)
   }, [selectedUser])
 
   return (
@@ -112,20 +113,20 @@ const Profile = (props) => {
       </button>
       {users.length ? (
         <div class="profile-list-container">
-          {profileCards.map((profileCard, idx) => (
-            <div class="profile-main-container" key={`${profileCard.id}`}>
-              <p>{profileCard.User.handle}</p>
+          {profileCard.map((profile, idx) => (
+            <div class="profile-main-container" key={`${profile.id}`}>
+              <p>{profile.User.handle}</p>
               <button class="profile-button-list">
                 <img
                   class="profile-img-list"
-                  src={profileCard.User.avatarUrl}
-                  alt={`Your avatar ${profileCard.User.handle}`}
+                  src={profile.User.avatarUrl}
+                  alt={`Your avatar ${profile.User.handle}`}
                 ></img>
               </button>
-              {console.log(profileCard.User.avatarUrl)}
-              <p>{profileCard.caption}</p>
-              <p>{profileCard.genStatus}</p>
-              <p>{profileCard.triviaTotal}</p>
+              {console.log(profile.User.avatarUrl)}
+              <p>{profile.caption}</p>
+              <p>{profile.genStatus}</p>
+              <p>{profile.triviaTotal}</p>
             </div>
           ))}
           <div class="profile-main-container" key={`${currentUserData.id}`}>
@@ -137,9 +138,15 @@ const Profile = (props) => {
                 alt={`Your avatar ${currentUserData.handle}`}
               ></img>
             </button>
-            <p>{currentUserSelectedProfileCard.caption}</p>
-            <p>{currentUserSelectedProfileCard.genStatus}</p>
-            <p>{currentUserSelectedProfileCard.triviaTotal}</p>
+            {currentUserData.ProfileCard !== null ? (
+              <div>
+                <p>{currentUserData.ProfileCard.caption}</p>
+                <p>{currentUserData.ProfileCard.genStatus}</p>
+                <p>{currentUserData.ProfileCard.triviaTotal}</p>
+              </div>
+            ) : (
+              <p>No Profile</p>
+            )}
           </div>
           <div>
             <button

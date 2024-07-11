@@ -76,6 +76,7 @@ const Login = (props) => {
       props.appDispatch({ type: SET_USER, payload: res.data.user })
       props.appDispatch({ type: SET_AUTHENTICATED, payload: true })
       console.log(selectedUser)
+
       history(`/home/${res.data.user.handle}`)
     } catch (error) {
       console.log(error)

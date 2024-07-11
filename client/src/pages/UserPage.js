@@ -29,7 +29,7 @@ const Users = (props) => {
 
   const history = useNavigate()
   const handle = useParams()
-  const { selectedUser, currentUser, user, appDispatch } = props
+  const { selectedUser, currentUser, currentUserData, user, appDispatch } = props
 
   //const [user, setUser] = useState([])
 

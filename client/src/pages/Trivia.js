@@ -8,13 +8,15 @@ import {
   SET_TRIVIA_TOTAL,
   SET_GEN_STATUS,
   UPDATE_PROFILE_CARD,
+  SET_CARD,
+  ADD_TRIVIA,
+  SET_CURRENT_USER_DATA,
   SET_CURRENT_USER_SELECTED_PROFILE_CARD
 } from '../store/types'
 
 import { useEffect, useState, useReducer } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import questions from '../store/triviaList'
-
 
 const iState = {
   answerForm: '',
@@ -41,6 +43,7 @@ const Trivia = (props) => {
     currentUser,
     currentUserData,
     currentUserSelectedProfileCard,
+    profileCard,
     selectedUser,
     appDispatch,
     triviaTotal,
@@ -68,33 +71,34 @@ const Trivia = (props) => {
         genStatus: genText
       })
       setGenText('')
+      console.log(currentUser.id)
     } catch (error) {
       console.log(error)
     }
   }
   const postTrivia = async () => {
     try {
-      let triviaStart = 0
-      triviaStart++
-      const res = await axios.put(`${BASE_URL}/home/${currentUser.id}`, {
-        triviaTotal: triviaStart,
-        genStatus: genText
+      //let addTrivia = 0
+      const res = await axios.put(`${BASE_URL}/home/${profileCard.id}`, {
+        genStatus: genText,
+        triviaTotal: triviaTotal
       })
-      console.log(currentUser.id)
-      console.log(user)
+      appDispatch({ type: ADD_TRIVIA, payload: res.data })
+      const profile = res.data[1][0]
       console.log(res.data[1][0])
-      console.log(genStatus)
-      const profileCard = res.data[1][0]
       appDispatch({
-        type: UPDATE_PROFILE_CARD,
-        payload: { profileCard: profileCard, id: profileCard.id }
+        type: SET_CARD,
+        payload: profile,
+        id: profile.id,
+        genStatus: genText,
+        triviaTotal: triviaTotal
       })
       appDispatch({
         type: SET_CURRENT_USER_SELECTED_PROFILE_CARD,
         payload: {
           ...currentUserSelectedProfileCard,
           genStatus: genText,
-          triviaTotal: triviaStart++
+          triviaTotal: triviaTotal
         }
       })
       console.log(currentUserSelectedProfileCard.genStatus)
@@ -166,7 +170,7 @@ const Trivia = (props) => {
 
   useEffect(() => {
     resetGenStatus()
-
+    console.log(profileCard)
     console.log(currentUserSelectedProfileCard.triviaTotal)
   }, [selectedUser])
   return questions.length ? (
@@ -180,28 +184,33 @@ const Trivia = (props) => {
       </button>
       {showScore ? (
         <div>Trivia Completed!</div>
-      ) : (
-        <div class="main-container">
-          <div>
-            <p>{questions[trivia].question}</p>
-          </div>
-          {questions[trivia].answer.map((answerChoice, idx) => (
-            <div key={idx}>
-              <button
-                class="trivia-answers"
-                onClick={() => {
-                  handleSubmitAnswer(
-                    answerChoice.isCorrect,
-                    answerChoice.genName
-                  )
-                }}
-              >
-                {answerChoice.answerText}
-              </button>
+      ) : currentUserData.ProfileCard !== null ? (
+        <div>
+          {' '}
+          <div class="main-container">
+            <div>
+              <p>{questions[trivia].question}</p>
             </div>
-          ))}
-          <p></p>
+            {questions[trivia].answer.map((answerChoice, idx) => (
+              <div key={idx}>
+                <button
+                  class="trivia-answers"
+                  onClick={() => {
+                    handleSubmitAnswer(
+                      answerChoice.isCorrect,
+                      answerChoice.genName
+                    )
+                  }}
+                >
+                  {answerChoice.answerText}
+                </button>
+              </div>
+            ))}
+            <p></p>
+          </div>
         </div>
+      ) : (
+        <p>Type a Caption at the home screen to access Trivia!</p>
       )}
     </div>
   ) : (

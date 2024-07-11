@@ -75,16 +75,6 @@
 }
 
 
-
-.profile-img{
-max-width:133.33px;
-max-height: 133.33px;
-color:#050456;
-margin-bottom:1em;
-border-radius:50%;
-box-shadow: 0px, 8px 32px 0px rgba(142, 142, 142, 0.3);
-}
-
 .profile-button-list{
   justify-content:center;
   align-content:center;
@@ -118,6 +108,7 @@ box-shadow: 0px, 8px 32px 0px rgba(142, 142, 142, 0.3);
 .profile-button{
   justify-content:center;
   align-content:center;
+  background-color:transparent;
   border-radius:50%;
   border: none;
   max-width:20em;
@@ -125,9 +116,76 @@ box-shadow: 0px, 8px 32px 0px rgba(142, 142, 142, 0.3);
   width: 10em;
   height:10em;
   margin-bottom:1em;
-  padding:1px;
+  padding:2px;
 }
 
+.profile-img{
+  max-width:19em;
+  max-height: 19em;
+  width: 9.5em;
+  height:9.5em;
+  padding:1px;
+  color:#050456;
+  margin-bottom:1em;
+  border-radius:50%;
+  box-shadow: 0px, 8px 32px 0px rgba(142, 142, 142, 0.3);
+  }
+
+  .profile-list-avatar-container{
+    text-align:center;
+    justify-content: center;
+    align-content: center;
+    max-width:15vw;
+    max-height: 15vh;
+    width: 8em;
+    height:8em;
+    margin:5px;
+  }
+
+  .profile-main-avatar-container{
+    font-family:Futura, sans-serif;
+    min-height:1em;
+    min-width: 1em;
+    max-height:3em;
+    max-width:3em;
+    color: #ECEDEB;
+    margin-left:5vw;
+    margin-right:5vw;
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+    border-radius:50%;
+    border-color: 1px solid rgba(255, 255, 255, 0.917);
+    box-shadow: 0px, 4px 16px 0px rgba(142, 142, 142, 0.3);
+    text-shadow: 0px, 4px 16px 0px rgba(142, 142, 142, 0.3);
+    padding: 1px 2px 2px 1px;
+    text-align:center;
+  }
+  .profile-avatar-button{
+    justify-content:center;
+    align-content:center;
+    background-color:transparent;
+    border-radius:50%;
+    border: 1px;
+    max-width:15vw;
+    max-height: 15vh;
+    width: 5.5em;
+    height:5.5em;
+    margin-bottom:0.5em;
+    padding:2px;
+  }
+  .profile-img-avatar-list{
+    justify-content:center;
+    align-content:center;
+    max-width:12vw;
+    max-height: 12vh;
+    width: 5em;
+    height:5em;
+    margin-bottom:0.5em;
+    border-radius:50%;
+    box-shadow: 0px, 4px 16px 0px rgba(142, 142, 142, 0.3);
+    padding:2px;
+    border: 1px;
+    }
 
 
 .home-button{

@@ -3,9 +3,9 @@ const middleware = require('../middleware')
 
 const createProfileCard = async (req, res) => {
   try {
-    let userId = req.params.user_id
+    let profileCardId = req.params.profileCard_id
     const profileCard = await ProfileCard.create({
-      userId,
+      profileCardId,
       ...req.body
     })
     res.send(profileCard)
@@ -16,7 +16,7 @@ const createProfileCard = async (req, res) => {
 
 const getOneProfileCard = async (req, res) => {
   try {
-    let profileCardId = parseInt(req.params.profileCard_id)
+    let user_id = parseInt(req.params.user_id)
     const profileCard = await ProfileCard.findOne({
       attributes: ['id', 'caption', 'genStatus', 'triviaTotal'],
       where: { profileCardId: profileCardId }
@@ -100,9 +100,9 @@ const getAllUsers = async (req, res) => {
 
 const getProfileCardsByUser = async (req, res) => {
   try {
-    const userId = parseInt(req.params.user_id)
+    const profileCardId = parseInt(req.params.profileCard_id)
     const profileCards = await ProfileCard.findAll({
-      where: { userId: userId },
+      where: { id: profileCardId },
       attributes: ['id', 'caption', 'genStatus', 'triviaTotal'],
       include: [{ model: User, attributes: ['id', 'handle', 'avatarUrl'] }]
     })
@@ -133,14 +133,16 @@ const getPosts = async (req, res) => {
   }
 }
 
-const updateProfileCard = async (req, res) => {
+const updateUsers = async (req, res) => {
   try {
-    const user_id = parseInt(req.params.user_id)
-    const updatedProfileCard = await ProfileCard.update(req.body, {
-      where: { id: user_id },
+    let profileCardId = parseInt(req.params.profileCard_id)
+    const profileCard = await ProfileCard.update(req.body, {
+      where: { id: profileCardId },
+      include: [{ model: User, attributes: ['id', 'handle'] }],
       returning: true
     })
-    res.send(updatedProfileCard)
+    res.send(profileCard)
+    console.log(profileCardId)
   } catch (error) {
     throw error
   }
@@ -155,6 +157,24 @@ const updateProfileCardsByUser = async (req, res) => {
       include: [{ model: User, attributes: ['id', 'handle'] }]
     })
     res.send(profileCards)
+  } catch (error) {
+    throw error
+  }
+}
+
+const updateUser = async (req, res) => {
+  try {
+    const updatedUser = await User.update(req.body, {
+      where: { handle: req.params.handle },
+      include: [
+        {
+          model: ProfileCard,
+          attributes: ['caption', 'genStatus', 'triviaTotal']
+        }
+      ],
+      returning: true
+    })
+    res.send(updatedUser)
   } catch (error) {
     throw error
   }
@@ -198,13 +218,14 @@ module.exports = {
   getOneProfileCard,
   getProfileCardsByUser,
   updateProfileCardsByUser,
+  updateUser,
   getProfileCards,
   getOneUser,
   getUser,
   getAllUsers,
   getPosts,
   getUsers,
-  updateProfileCard,
+  updateUsers,
   deleteUser,
   deleteProfile,
   getAllTriviaCards

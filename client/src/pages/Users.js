@@ -10,6 +10,7 @@ import {
   SET_PROFILE_CARD,
   SET_CURRENT_USER,
   SET_USER,
+  SET_CARD,
   GET_USER,
   SET_USER_PROFILES
 } from '../store/types'
@@ -17,11 +18,17 @@ import {
 const Users = (props) => {
   const history = useNavigate()
   const handle = useParams()
-  const { user, currentUserData, appDispatch } = props
+  const {
+    user,
+    currentUserData,
+    selectedUser,
+    currentUser,
+    profileCard,
+    appDispatch
+  } = props
 
-  const { selectedUser, currentUser } = props
   const [profile, setProfile] = useState(user)
-  const [profileCards, setProfileCards] = useState([])
+  //const [profileCards, setProfileCards] = useState([])
 
   const [users, setUsers] = useState([])
 
@@ -43,16 +50,16 @@ const Users = (props) => {
   }
 
   const backToHome = async () => {
-    if (currentUser && currentUserData) {
-      history(`/home/${currentUser.handle}`)
-    } else {
-      history(`/login`)
-    }
+    return currentUserData !== null
+      ? history(`/home/${currentUser.handle}`)
+      : currentUserData === null
+      ? history(`/login`)
+      : history(`/login`)
   }
 
   useEffect(() => {
     getUsers()
-    console.log(profileCards)
+    //console.log(profileCards)
   }, [selectedUser])
 
   return (

@@ -8,6 +8,8 @@ import Trivia from './pages/Trivia'
 import Users from '../src/pages/Users'
 import UserPage from '../src/pages/UserPage'
 import Nav from '../src/components/Nav'
+import Avatar from './components/Avatar'
+import Settings from './pages/Settings'
 import { BASE_URL } from './globals'
 import {
   SET_AUTHENTICATED,
@@ -18,6 +20,8 @@ import {
   SET_CURRENT_USER,
   SET_CURRENT_USER_DATA,
   ADD_CURRENT_USER_PROFILE_CARD,
+  ADD_TRIVIA,
+  SET_CARD,
   SET_PROFILE_CARD,
   GET_USER,
   UPDATE_PROFILE_CARD,
@@ -36,6 +40,7 @@ const iState = {
   currentUserSelectedProfileCard: [],
   selectedUser: null,
   genStatus: 'None',
+  profileCard: [],
   setProfile: [],
   user: {},
   profileCardsByHandle: [],
@@ -61,9 +66,13 @@ const reducer = (state, action) => {
       return { ...state, selectedUser: action.payload }
     case SET_PROFILE_CARD:
       return { ...state, selectedProfileCard: action.payload }
+    case ADD_TRIVIA:
+      return { ...state, triviaTotal: state.triviaTotal++ }
     case PROFILE_CARDS_BY_HANDLE:
       return { ...state, profileCardsByHandle: action.payload }
     case GET_PROFILE_CARD:
+      return { ...state, profileCard: action.payload }
+    case SET_CARD:
       return { ...state, profileCard: action.payload }
     case GET_ALL_USERS:
       return { ...state, allUsers: action.payload }
@@ -133,6 +142,12 @@ const App = () => {
   return (
     <div className="App">
       <header>
+        <Avatar
+          selectedUser={state.selectedUser}
+          currentUser={state.currentUser}
+          currentUserData={state.currentUserData}
+          appDispatch={dispatch}
+        ></Avatar>
         <Nav
           authenticated={state.authenticated}
           currentUser={state.currentUser}
@@ -167,6 +182,7 @@ const App = () => {
               currentUserSelectedProfileCard={
                 state.currentUserSelectedProfileCard
               }
+              profileCard={state.profileCard}
               profileCardsByHandle={state.profileCardsByHandle}
               genStatus={state.genStatus}
               selectedUser={state.selectedUser}
@@ -185,6 +201,7 @@ const App = () => {
               genStatus={state.genStatus}
               currentUser={state.currentUser}
               currentUserData={state.currentUserData}
+              profileCard={state.profileCard}
               currentUserSelectedProfileCard={
                 state.currentUserSelectedProfileCard
               }
@@ -200,6 +217,7 @@ const App = () => {
               selectedUser={state.selectedUser}
               currentUser={state.currentUser}
               triviaTotal={state.triviaTotal}
+              profileCard={state.profileCard}
               currentUserData={state.currentUserData}
               selectedProfileCard={state.selectedProfileCard}
               currentUserSelectedProfileCard={
@@ -214,6 +232,7 @@ const App = () => {
             <Users
               currentUser={state.currentUser}
               selectedUser={state.selectedUser}
+              profileCard={state.profileCard}
               user={state.user}
               appDispatch={dispatch}
             />
@@ -228,6 +247,17 @@ const App = () => {
               currentUserData={state.currentUserData}
               appDispatch={dispatch}
             ></UserPage>
+          }
+        ></Route>
+        <Route
+          path="/settings"
+          element={
+            <Settings
+              selectedUser={state.selectedUser}
+              currentUser={state.currentUser}
+              currentUserData={state.currentUserData}
+              appDispatch={dispatch}
+            ></Settings>
           }
         ></Route>
       </Routes>

@@ -27,6 +27,12 @@ const LoginNav = (props) => {
           Log Out
         </button>
       </NavLink>
+
+      <NavLink to="/settings">
+        <button class="logOut-button" onClick={() => history('/settings')}>
+          Settings
+        </button>
+      </NavLink>
     </div>
   )
 }
