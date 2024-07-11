@@ -4,8 +4,8 @@ const questions = [
       'The battle royale video game / game platform , that focuses on building complex structures while engaging in combat is named :',
     answer: [
       { answerText: 'Apex Legends', isCorrect: false },
-      { answerText: 'PUBG: BATTLEGROUNDS', isCorrect: false },
       { answerText: 'Fortnite', isCorrect: true, genName: 'z' },
+      { answerText: 'PUBG: BATTLEGROUNDS', isCorrect: false },
       { answerText: 'Call Of Duty: Warzone', isCorrect: false }
     ]
   },
@@ -14,17 +14,17 @@ const questions = [
     answer: [
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: '1966', isCorrect: true, genName: 'b' },
-      { answerText: '1970', isCorrect: false }
+      { answerText: '1970', isCorrect: false },
+      { answerText: '1966', isCorrect: true, genName: 'b' }
     ]
   },
   {
     question: "Who was the director for Michael Jackson's video , Thriller?",
     answer: [
       { answerText: 'James Cameron', isCorrect: false },
-      { answerText: 'John Landis', isCorrect: true, genName: 'x' },
       { answerText: 'Steven Spielberg', isCorrect: false },
-      { answerText: 'Francis Ford Coppola', isCorrect: false }
+      { answerText: 'Francis Ford Coppola', isCorrect: false },
+      { answerText: 'John Landis', isCorrect: true, genName: 'x' }
     ]
   },
   {
@@ -42,8 +42,8 @@ const questions = [
       "This Nirvana album brought Alternative Rock into the mainstream and catapulted a subcuture of Rock Music called 'Grunge'.",
     answer: [
       { answerText: 'Nevermore', isCorrect: false },
-      { answerText: 'Alice In Chains', isCorrect: false },
       { answerText: 'Nevermind', isCorrect: true, genName: 'm' },
+      { answerText: 'Alice In Chains', isCorrect: false },
       { answerText: 'In Utero', isCorrect: false }
     ]
   },
@@ -65,8 +65,8 @@ const questions = [
     question: 'What was the the name of the first video game console?',
     answer: [
       { answerText: 'Super Nintendo', isCorrect: false },
-      { answerText: 'Pong', isCorrect: false },
       { answerText: 'Magnavox Odyssey', isCorrect: true, genName: 'x' },
+      { answerText: 'Pong', isCorrect: false },
       { answerText: 'Atari', isCorrect: false }
     ]
   },
@@ -84,9 +84,9 @@ const questions = [
     question:
       "What TV show is known for the popular catchphrase , 'Lucy , I'm Home!'?",
     answer: [
+      { answerText: 'I Love Lucy', isCorrect: true, genName: 'b' },
       { answerText: 'The Andy Griffith Show', isCorrect: false },
       { answerText: 'The Honeymooners', isCorrect: false },
-      { answerText: 'I Love Lucy', isCorrect: true, genName: 'b' },
       { answerText: 'Bewitched', isCorrect: false }
     ]
   },
@@ -95,16 +95,16 @@ const questions = [
     answer: [
       { answerText: 'Overly Dedicated', isCorrect: false },
       { answerText: 'Good Kid , M.A.A.D. City', isCorrect: false },
-      { answerText: 'Section.80', isCorrect: true, genName: 'z' },
-      { answerText: 'Kendrick Lamar', isCorrect: false }
+      { answerText: 'Kendrick Lamar', isCorrect: false },
+      { answerText: 'Section.80', isCorrect: true, genName: 'z' }
     ]
   },
   {
     question: 'Which US city was John F. Kennedy killed?',
     answer: [
+      { answerText: 'Dallas', isCorrect: true, genName: 'b' },
       { answerText: 'Birmingham', isCorrect: false },
       { answerText: 'Washington D.C.', isCorrect: false },
-      { answerText: 'Dallas', isCorrect: true, genName: 'b' },
       { answerText: 'Miami', isCorrect: false }
     ]
   },
@@ -121,17 +121,17 @@ const questions = [
       'This online influencer has over 290 million subscribers on YouTube (as of 2024).',
     answer: [
       { answerText: 'iShowSpeed', isCorrect: false },
-      { answerText: 'Kai Cenat', isCorrect: false },
       { answerText: 'Mr. Beast', isCorrect: true, genName: 'z' },
+      { answerText: 'Kai Cenat', isCorrect: false },
       { answerText: 'Penguinz0', isCorrect: false }
     ]
   },
   {
     question: 'What state was Elvis Presley born?',
     answer: [
+      { answerText: 'Mississippi', isCorrect: true, genName: 'b' },
       { answerText: 'Tennesee', isCorrect: false },
       { answerText: 'Georgia', isCorrect: false },
-      { answerText: 'Mississippi', isCorrect: true, genName: 'b' },
       { answerText: 'Alabama', isCorrect: false }
     ]
   },
@@ -141,8 +141,8 @@ const questions = [
     answer: [
       { answerText: 'Game Of Death', isCorrect: false },
       { answerText: 'Return Of The Dragon', isCorrect: false },
-      { answerText: 'Enter The Dragon', isCorrect: true, genName: 'x' },
-      { answerText: 'The Chinese Connection', isCorrect: false }
+      { answerText: 'The Chinese Connection', isCorrect: false },
+      { answerText: 'Enter The Dragon', isCorrect: true, genName: 'x' }
     ]
   },
   {
@@ -150,8 +150,8 @@ const questions = [
       'Which Michael Jackson music video became a cultural impact and significant shift for black artists , and the marketing of music videos on MTV?',
     answer: [
       { answerText: 'Thriller', isCorrect: false },
-      { answerText: 'Smooth Criminal', isCorrect: false },
       { answerText: 'Billie Jean', isCorrect: true, genName: 'x' },
+      { answerText: 'Smooth Criminal', isCorrect: false },
       { answerText: 'Bad', isCorrect: false }
     ]
   },
@@ -159,8 +159,8 @@ const questions = [
     question: "Which brand of candy is a portmanteau of 'Twin Sticks,?",
     answer: [
       { answerText: 'Milky Way', isCorrect: false },
-      { answerText: 'Skittles', isCorrect: false },
       { answerText: 'Twix', isCorrect: true, genName: 'b' },
+      { answerText: 'Skittles', isCorrect: false },
       { answerText: 'Snickers', isCorrect: false }
     ]
   },
@@ -168,9 +168,9 @@ const questions = [
     question:
       'What is the name of the final album by Elvis Presley , released in 1977?',
     answer: [
+      { answerText: 'Moody Blue', isCorrect: true, genName: 'x' },
       { answerText: 'Promised Land', isCorrect: false },
       { answerText: 'Elvis', isCorrect: false },
-      { answerText: 'Moody Blue', isCorrect: true, genName: 'x' },
       { answerText: 'Good Times', isCorrect: false }
     ]
   },
@@ -178,8 +178,8 @@ const questions = [
     question: "Which one of these kids' toys was NOT introduced in the 1990s'?",
     answer: [
       { answerText: 'Bop It', isCorrect: false },
-      { answerText: 'BeyBlade', isCorrect: false },
       { answerText: 'Transformers', isCorrect: true, genName: 'm' },
+      { answerText: 'BeyBlade', isCorrect: false },
       { answerText: 'Pokémon Cards', isCorrect: false }
     ]
   },
@@ -189,8 +189,8 @@ const questions = [
     answer: [
       { answerText: 'Beyoncé', isCorrect: false },
       { answerText: 'Renaissance', isCorrect: false },
-      { answerText: 'Lemonade', isCorrect: true, genName: 'z' },
-      { answerText: 'Cowboy Carter', isCorrect: false }
+      { answerText: 'Cowboy Carter', isCorrect: false },
+      { answerText: 'Lemonade', isCorrect: true, genName: 'z' }
     ]
   },
   {
@@ -205,9 +205,9 @@ const questions = [
   {
     question: 'Which one of these fashion trends did NOT emerge in the 70s?',
     answer: [
+      { answerText: 'Heavy Metal', isCorrect: true, genName: 'x' },
       { answerText: 'Designer Jeans', isCorrect: false },
       { answerText: 'Daisy Dukes', isCorrect: false },
-      { answerText: 'Heavy Metal', isCorrect: true, genName: 'x' },
       { answerText: 'Bell Bottoms', isCorrect: false }
     ]
   },
@@ -216,8 +216,8 @@ const questions = [
       "____ is a Disney animated musical film that follows a princess' journey to find her sister , known for it's grammy-winning song , 'Let It Go'.",
     answer: [
       { answerText: 'Cinderella', isCorrect: false },
-      { answerText: 'Moana', isCorrect: false },
       { answerText: 'Frozen', isCorrect: true, genName: 'z' },
+      { answerText: 'Moana', isCorrect: false },
       { answerText: 'The Lion King', isCorrect: false }
     ]
   },
@@ -227,8 +227,8 @@ const questions = [
     answer: [
       { answerText: 'Disco', isCorrect: false },
       { answerText: 'R & B', isCorrect: false },
-      { answerText: 'Funk', isCorrect: true, genName: 'x' },
-      { answerText: 'Soul', isCorrect: false }
+      { answerText: 'Soul', isCorrect: false },
+      { answerText: 'Funk', isCorrect: true, genName: 'x' }
     ]
   },
   {
@@ -236,8 +236,8 @@ const questions = [
       "What was the name of the war that contributed to the 'Fall of Saigon'?",
     answer: [
       { answerText: 'World War II', isCorrect: false },
-      { answerText: 'Iraq War', isCorrect: false },
       { answerText: 'Vietnam War', isCorrect: true, genName: 'b' },
+      { answerText: 'Iraq War', isCorrect: false },
       { answerText: 'Korean War', isCorrect: false }
     ]
   },
@@ -245,9 +245,9 @@ const questions = [
     question:
       'This true-crime documentary about a former zookeeper and convicted felon went viral in March 2020.',
     answer: [
+      { answerText: 'Tiger King', isCorrect: true, genName: 'z' },
       { answerText: 'Jack Hanna', isCorrect: false },
       { answerText: 'Kevin Richardson', isCorrect: false },
-      { answerText: 'Tiger King', isCorrect: true, genName: 'z' },
       { answerText: 'Siegfried & Roy', isCorrect: false }
     ]
   },
@@ -266,8 +266,8 @@ const questions = [
       "Who is the actor that helped pioneer spaghetti western films , such as 'The Good , The Bad , & The Ugly' , 'A Fistful of Dollars' , and 'A Few Dollars More'?",
     answer: [
       { answerText: 'Henry Fonda', isCorrect: false },
-      { answerText: 'John Wayne', isCorrect: false },
       { answerText: 'Clint Eastwood', isCorrect: true, genName: 'b' },
+      { answerText: 'John Wayne', isCorrect: false },
       { answerText: 'Steve McQueen', isCorrect: false }
     ]
   },
@@ -276,8 +276,8 @@ const questions = [
     answer: [
       { answerText: '1995', isCorrect: false },
       { answerText: '2007', isCorrect: false },
-      { answerText: '1998', isCorrect: true, genName: 'm' },
-      { answerText: '1985', isCorrect: false }
+      { answerText: '1985', isCorrect: false },
+      { answerText: '1998', isCorrect: true, genName: 'm' }
     ]
   },
   {
@@ -295,8 +295,8 @@ const questions = [
       "Jason David Frank played 'Tommy Oliver' in this popular live-action kids tv show.",
     answer: [
       { answerText: 'Boy Meets World', isCorrect: false },
-      { answerText: 'Teenage Mutant Ninja Turtles', isCorrect: false },
       { answerText: 'Power Rangers', isCorrect: true, genName: 'm' },
+      { answerText: 'Teenage Mutant Ninja Turtles', isCorrect: false },
       { answerText: 'Animorphs', isCorrect: false }
     ]
   },
@@ -304,10 +304,10 @@ const questions = [
     question:
       "What famous director caused a small panic when he broadcasted an adaptation of 'War of the Worlds'?",
     answer: [
-      { answerText: '1955', isCorrect: false },
-      { answerText: '1967', isCorrect: false },
       { answerText: 'Orson Welles', isCorrect: true, genName: 'b' },
-      { answerText: '1970', isCorrect: false }
+      { answerText: 'Alfred Hitchcock', isCorrect: false },
+      { answerText: 'James Cameron', isCorrect: false },
+      { answerText: 'Ingmar Bergman', isCorrect: false }
     ]
   },
   {
@@ -316,8 +316,8 @@ const questions = [
     answer: [
       { answerText: 'Freaks and Geeks', isCorrect: false },
       { answerText: '13 Reasons Why', isCorrect: false },
-      { answerText: 'Euphoria', isCorrect: true, genName: 'z' },
-      { answerText: 'Stranger Things', isCorrect: false }
+      { answerText: 'Stranger Things', isCorrect: false },
+      { answerText: 'Euphoria', isCorrect: true, genName: 'z' }
     ]
   },
   {
@@ -326,17 +326,17 @@ const questions = [
     answer: [
       { answerText: 'Doom', isCorrect: false },
       { answerText: 'Wolfenstein 3D', isCorrect: false },
-      { answerText: 'Mortal Kombat', isCorrect: true, genName: 'm' },
-      { answerText: 'Street Fighter II', isCorrect: false }
+      { answerText: 'Street Fighter II', isCorrect: false },
+      { answerText: 'Mortal Kombat', isCorrect: true, genName: 'm' }
     ]
   },
   {
     question:
       "The subgenre of hip-hop music , spearheaded by producers such as Teddy Riley , was defined by a mix of dance pop and hip-hop , with notable albums such as Janet Jackson's 'Control', and Michael Jackson's 'Dangerous', is called : ",
     answer: [
+      { answerText: 'New Jack Swing', isCorrect: true, genName: 'x' },
       { answerText: 'Trip-Hop', isCorrect: false },
       { answerText: 'Boom-Bap Rap', isCorrect: false },
-      { answerText: 'New Jack Swing', isCorrect: true, genName: 'x' },
       { answerText: 'G-Funk', isCorrect: false }
     ]
   },
@@ -345,8 +345,8 @@ const questions = [
       "This series of children's horror novels was adapted into a live-action tv show in 1995.",
     answer: [
       { answerText: 'Fear Street', isCorrect: false },
-      { answerText: 'Scary Stories To Tell In The Dark', isCorrect: false },
       { answerText: 'Goosebumps', isCorrect: true, genName: 'm' },
+      { answerText: 'Scary Stories To Tell In The Dark', isCorrect: false },
       { answerText: 'Nightmare Hour', isCorrect: false }
     ]
   },
@@ -356,8 +356,8 @@ const questions = [
     answer: [
       { answerText: 'Luke Skywalker', isCorrect: false },
       { answerText: 'Han Solo', isCorrect: false },
-      { answerText: 'R2-D2', isCorrect: true, genName: 'x' },
-      { answerText: 'Darth Vader', isCorrect: false }
+      { answerText: 'Darth Vader', isCorrect: false },
+      { answerText: 'R2-D2', isCorrect: true, genName: 'x' }
     ]
   },
   {
@@ -374,8 +374,8 @@ const questions = [
       "This South Korean show went viral in 2021 , where 456 players risk their lives in a contest of deadly children's games to earn money to fix their financial troubles.",
     answer: [
       { answerText: 'Battle Royale', isCorrect: false },
-      { answerText: 'Train To Busan', isCorrect: false },
       { answerText: 'Squid Games', isCorrect: true, genName: 'z' },
+      { answerText: 'Train To Busan', isCorrect: false },
       { answerText: 'Parasite', isCorrect: false }
     ]
   },
@@ -397,9 +397,9 @@ const questions = [
     question:
       'Electric Ladyland is a psychadelic rock album , the third and final album , released by which artist?',
     answer: [
+      { answerText: 'Jimi Hendrix', isCorrect: true, genName: 'x' },
       { answerText: 'Buddy Holly', isCorrect: false },
       { answerText: 'Kurt Cobain', isCorrect: false },
-      { answerText: 'Jimi Hendrix', isCorrect: true, genName: 'x' },
       { answerText: 'David Bowie', isCorrect: false }
     ]
   },
@@ -418,8 +418,8 @@ const questions = [
       'What video game console did Kai Cenat give away when he was arrested for inciting a riot in 2023?',
     answer: [
       { answerText: 'Steam Deck', isCorrect: false },
-      { answerText: 'Xbox Series X', isCorrect: false },
       { answerText: 'Playstation 5', isCorrect: true, genName: 'z' },
+      { answerText: 'Xbox Series X', isCorrect: false },
       { answerText: 'Nintendo Switch', isCorrect: false }
     ]
   },
@@ -429,21 +429,21 @@ const questions = [
     answer: [
       { answerText: "'We're gonna need a bigger boat.'", isCorrect: false },
       { answerText: "'You complete, ME.'", isCorrect: false },
+      { answerText: "'You can't handle the truth!'", isCorrect: false },
       {
         answerText: "'I'll make him an offer he can't refuse.'",
         isCorrect: true,
         genName: 'x'
-      },
-      { answerText: "'You can't handle the truth!'", isCorrect: false }
+      }
     ]
   },
   {
     question:
       'What was the name of the Miles Davis album that had a significant impact on the future of jazz?',
     answer: [
+      { answerText: 'Kind Of Blue', isCorrect: true, genName: 'b' },
       { answerText: "What's Going On?", isCorrect: false },
       { answerText: 'Sketches Of Spain', isCorrect: false },
-      { answerText: 'Kind Of Blue', isCorrect: true, genName: 'b' },
       { answerText: 'The Man With The Horn', isCorrect: false }
     ]
   },
@@ -461,8 +461,8 @@ const questions = [
     question: "Which of these horror movies was NOT released in the 1970s'?",
     answer: [
       { answerText: 'Texas Chainsaw Massacre', isCorrect: false },
-      { answerText: 'The Exorcist', isCorrect: false },
       { answerText: 'Friday The 13th', isCorrect: true, genName: 'x' },
+      { answerText: 'The Exorcist', isCorrect: false },
       { answerText: 'Halloween', isCorrect: false }
     ]
   },
@@ -470,9 +470,9 @@ const questions = [
     question:
       'Which American actress popularized the headscarf in popular fashion?',
     answer: [
+      { answerText: 'Audrey Hepburn', isCorrect: true, genName: 'b' },
       { answerText: 'Marilyn Monroe', isCorrect: false },
       { answerText: 'Liza Minnelli', isCorrect: false },
-      { answerText: 'Audrey Hepburn', isCorrect: true, genName: 'b' },
       { answerText: 'Elizabeth Taylor', isCorrect: false }
     ]
   },
@@ -490,9 +490,9 @@ const questions = [
     question:
       'What was the previous name of the publishing label that eventually became Marvel Comics?',
     answer: [
+      { answerText: 'Atlas Comics', isCorrect: true, genName: 'b' },
       { answerText: '1955', isCorrect: false },
       { answerText: '1967', isCorrect: false },
-      { answerText: 'Atlas Comics', isCorrect: true, genName: 'b' },
       { answerText: '1970', isCorrect: false }
     ]
   }
