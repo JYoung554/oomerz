@@ -20,6 +20,7 @@ import questions from '../store/triviaList'
 
 const iState = {
   answerForm: '',
+  addTrivia: 0,
   submittedAnswer: false,
   clickedPostAnswer: false
   //genStatus: 'a'
@@ -53,7 +54,7 @@ const Trivia = (props) => {
   let handle = useParams()
   const [trivia, setTriviaQuestions] = useState(0)
   const [user, setUser] = useState('')
-  const [triviaTotalNumber, setTriviaTotalNumber] = useState(0)
+  let [triviaTotalNumber, setTriviaTotalNumber] = useState(0)
   const [boomer, setBoomer] = useState(0)
   const [genX, setGenX] = useState(0)
   const [millennial, setMillennial] = useState(0)
@@ -61,6 +62,7 @@ const Trivia = (props) => {
   const [genText, setGenText] = useState(
     currentUserSelectedProfileCard.genStatus
   )
+  let [addTrivia, setAddTrivia] = useState(0)
   const [score, setScore] = useState(0)
   const [showScore, setShowScore] = useState(false)
   const [state, dispatch] = useReducer(reducer, iState)
@@ -78,12 +80,12 @@ const Trivia = (props) => {
   }
   const postTrivia = async () => {
     try {
-      //let addTrivia = 0
       const res = await axios.put(`${BASE_URL}/home/${profileCard.id}`, {
         genStatus: genText,
-        triviaTotal: triviaTotal
+        triviaTotal: triviaTotalNumber
       })
-      appDispatch({ type: ADD_TRIVIA, payload: res.data })
+      //triviaTotalNumber++
+      console.log(triviaTotalNumber)
       const profile = res.data[1][0]
       console.log(res.data[1][0])
       appDispatch({
@@ -91,14 +93,14 @@ const Trivia = (props) => {
         payload: profile,
         id: profile.id,
         genStatus: genText,
-        triviaTotal: triviaTotal
+        triviaTotal: triviaTotalNumber
       })
       appDispatch({
         type: SET_CURRENT_USER_SELECTED_PROFILE_CARD,
         payload: {
           ...currentUserSelectedProfileCard,
           genStatus: genText,
-          triviaTotal: triviaTotal
+          triviaTotal: triviaTotalNumber
         }
       })
       console.log(currentUserSelectedProfileCard.genStatus)
@@ -155,11 +157,10 @@ const Trivia = (props) => {
       }
     } else {
       setShowScore(true)
+      setTriviaTotalNumber(triviaTotalNumber++)
       console.log(genText)
       currentUserSelectedProfileCard.triviaTotal++
-      setTriviaTotalNumber(triviaTotal + 1)
       postTrivia()
-
       history(`/home/${currentUser.handle}`)
     }
   }
@@ -172,7 +173,8 @@ const Trivia = (props) => {
     resetGenStatus()
     console.log(profileCard)
     console.log(currentUserSelectedProfileCard.triviaTotal)
-  }, [selectedUser])
+    console.log(triviaTotal)
+  }, [selectedUser, triviaTotalNumber])
   return questions.length ? (
     <div>
       <button

@@ -216,7 +216,7 @@ const Home = (props) => {
   useEffect(() => {
     getProfile()
     console.log(currentUserSelectedProfileCard)
-  }, [currentUserData])
+  }, [currentUserData, triviaTotal])
 
   return currentUser && currentUserData ? (
     <div class="main-container">

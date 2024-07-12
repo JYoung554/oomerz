@@ -169,7 +169,7 @@ const updateUser = async (req, res) => {
       include: [
         {
           model: ProfileCard,
-          attributes: ['caption', 'genStatus', 'triviaTotal']
+          attributes: ['id', 'caption', 'genStatus', 'triviaTotal']
         }
       ],
       returning: true

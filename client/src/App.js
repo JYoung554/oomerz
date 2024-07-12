@@ -67,7 +67,9 @@ const reducer = (state, action) => {
     case SET_PROFILE_CARD:
       return { ...state, selectedProfileCard: action.payload }
     case ADD_TRIVIA:
-      return { ...state, triviaTotal: state.triviaTotal++ }
+      return state.triviaTotal >= 0
+        ? { ...state, triviaTotal: state.triviaTotal + 1 }
+        : { ...state, triviaTotal: state.triviaTotal } 
     case PROFILE_CARDS_BY_HANDLE:
       return { ...state, profileCardsByHandle: action.payload }
     case GET_PROFILE_CARD:

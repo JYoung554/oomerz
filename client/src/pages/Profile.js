@@ -56,10 +56,9 @@ const Profile = (props) => {
 
   const getProfile = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/home/${currentUser.handle}`)
+      const res = await axios.get(`${BASE_URL}/home/${profileCard.id}`)
       if (!currentUserData && res.data) {
-        appDispatch({ type: SET_CURRENT_USER_DATA, payload: res.data })
-        appDispatch({ type: SET_CARD, payload: res.data.ProfileCard })
+        appDispatch({ type: SET_CARD, payload: res.data })
         appDispatch({ type: SET_PROFILE_CARD, payload: res.data })
         appDispatch({ type: SET_USER, payload: res.data })
       }
