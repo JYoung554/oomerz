@@ -73,7 +73,7 @@ const Login = (props) => {
         type: RESET_LOGIN
       })
       props.appDispatch({ type: SET_CURRENT_USER, payload: res.data.user })
-      props.appDispatch({ type: SET_USER, payload: res.data.user })
+      //props.appDispatch({ type: SET_USER, payload: res.data.user })
       props.appDispatch({ type: SET_AUTHENTICATED, payload: true })
       console.log(selectedUser)
 

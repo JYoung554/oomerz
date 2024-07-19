@@ -68,7 +68,7 @@ const Home = (props) => {
         appDispatch({ type: SET_CURRENT_USER_DATA, payload: res.data })
         appDispatch({ type: SET_CARD, payload: res.data.ProfileCard })
         appDispatch({ type: SET_PROFILE_CARD, payload: res.data })
-        appDispatch({ type: SET_USER, payload: res.data })
+        //appDispatch({ type: SET_USER, payload: res.data })
 
         console.log(profileCards)
       }
@@ -84,7 +84,7 @@ const Home = (props) => {
 
   const getProfileCardsByHandle = async () => {
     const res = await axios.get(`${BASE_URL}/home/${currentUser.handle}`)
-    //dispatch({ type: SET_PROFILE_CARD, payload: res.data.ProfileCards })
+    dispatch({ type: SET_PROFILE_CARD, payload: res.data.ProfileCards })
     //appDispatch({ type: SET_CARD, payload: res.data.ProfileCards })
     console.log(res.data)
     history('/profile')
@@ -107,7 +107,9 @@ const Home = (props) => {
         type: SET_CURRENT_USER_SELECTED_PROFILE_CARD,
         payload: {
           ...currentUserSelectedProfileCard,
-          caption: state.captionForm
+          caption: state.captionForm,
+          genStatus: genStatus,
+          triviaTotal: state.triviaTotal
         }
       })
       appDispatch({

@@ -23,6 +23,7 @@ import {
   ADD_TRIVIA,
   SET_CARD,
   SET_PROFILE_CARD,
+  SET_PROFILE_USER,
   GET_USER,
   UPDATE_PROFILE_CARD,
   SET_CURRENT_USER_SELECTED_PROFILE_CARD,
@@ -43,6 +44,7 @@ const iState = {
   profileCard: [],
   setProfile: [],
   user: {},
+  users: [],
   profileCardsByHandle: [],
   triviaTotal: 0,
   selectedProfileCard: [],
@@ -64,12 +66,14 @@ const reducer = (state, action) => {
       return { ...state, triviaTotal: action.payload }
     case SET_USER:
       return { ...state, selectedUser: action.payload }
+    case SET_PROFILE_USER:
+      return { ...state, users: action.payload }
     case SET_PROFILE_CARD:
       return { ...state, selectedProfileCard: action.payload }
     case ADD_TRIVIA:
       return state.triviaTotal >= 0
         ? { ...state, triviaTotal: state.triviaTotal + 1 }
-        : { ...state, triviaTotal: state.triviaTotal } 
+        : { ...state, triviaTotal: state.triviaTotal }
     case PROFILE_CARDS_BY_HANDLE:
       return { ...state, profileCardsByHandle: action.payload }
     case GET_PROFILE_CARD:
@@ -204,6 +208,7 @@ const App = () => {
               currentUser={state.currentUser}
               currentUserData={state.currentUserData}
               profileCard={state.profileCard}
+              users={state.users}
               currentUserSelectedProfileCard={
                 state.currentUserSelectedProfileCard
               }
