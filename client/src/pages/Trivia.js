@@ -171,6 +171,7 @@ const Trivia = (props) => {
       console.log('done')
       setShowScore(true)
       addTriviaFunction()
+
     }
   }
 
