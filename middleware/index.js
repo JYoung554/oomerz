@@ -51,5 +51,6 @@ module.exports = {
   comparePassword,
   createToken,
   VerifyToken,
-  StripToken
+  StripToken,
+  dotenv
 }
