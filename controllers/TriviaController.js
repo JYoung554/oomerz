@@ -1,5 +1,5 @@
 const { User, ProfileCard, TriviaCard } = require('../models')
-const middleware = require('../middleware')
+const middleware = require('../middleware').default
 
 const getTriviaCard = async (req, res) => {
   try {

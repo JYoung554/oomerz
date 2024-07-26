@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { StripToken, VerifyToken } = require('../middleware')
+const { StripToken, VerifyToken } = require('../middleware').default
 const controller = require('../controllers/ProfileController')
 //router.get('/:user_id', controller.getOneProfileCard)
 router.get('/users/:handle', controller.getUser)

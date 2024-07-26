@@ -1,9 +1,10 @@
+import dotenv from 'dotenv'
+require(dotenv).config()
 const bcrypt = require('bcrypt')
-require('dotenv').config()
 const jwt = require('jsonwebtoken')
+
 const SALT_ROUNDS = 12
 const APP_SECRET = 'evkusbwjodnrnw'
-
 const hashPassword = async (password) => {
   let hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
   console.log(hashedPassword)
