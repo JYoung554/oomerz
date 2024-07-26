@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import 'dotenv/config'
 require(dotenv).config()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -51,6 +51,5 @@ module.exports = {
   comparePassword,
   createToken,
   VerifyToken,
-  StripToken,
-  dotenv
+  StripToken
 }

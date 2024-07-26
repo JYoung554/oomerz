@@ -68,24 +68,15 @@ const Home = (props) => {
         appDispatch({ type: SET_CURRENT_USER_DATA, payload: res.data })
         appDispatch({ type: SET_CARD, payload: res.data.ProfileCard })
         appDispatch({ type: SET_PROFILE_CARD, payload: res.data })
-        //appDispatch({ type: SET_USER, payload: res.data })
-
-        console.log(profileCards)
       }
     } catch (error) {
       console.log(error)
     }
-
     console.log(currentUserData)
-    console.log(selectedProfileCard)
   }
-
-  console.log(getProfile())
-
   const getProfileCardsByHandle = async () => {
     const res = await axios.get(`${BASE_URL}/home/${currentUser.handle}`)
     dispatch({ type: SET_PROFILE_CARD, payload: res.data.ProfileCards })
-    //appDispatch({ type: SET_CARD, payload: res.data.ProfileCards })
     console.log(res.data)
     history('/profile')
   }
@@ -93,7 +84,6 @@ const Home = (props) => {
   const handleProfileCardSubmit = async (e) => {
     e.preventDefault()
     try {
-      console.log(currentUserSelectedProfileCard.caption)
       const res = await axios.post(`${BASE_URL}/home/${currentUser.id}`, {
         caption: state.captionForm,
         genStatus: genStatus,
@@ -124,8 +114,6 @@ const Home = (props) => {
           }
         ]
       })
-      console.log(currentUserData.ProfileCard)
-      console.log(currentUserData)
     } catch (error) {
       console.log(error)
     }
@@ -166,7 +154,6 @@ const Home = (props) => {
           }
         ]
       })
-      console.log(currentUserData.ProfileCard)
     } catch (error) {
       console.log(error)
     }
@@ -183,7 +170,6 @@ const Home = (props) => {
 
   const getTrivia = async () => {
     console.log(currentUserData.ProfileCard)
-    console.log(currentUserSelectedProfileCard)
     history(`/trivia`)
   }
 
@@ -217,7 +203,6 @@ const Home = (props) => {
 
   useEffect(() => {
     getProfile()
-    console.log(currentUserSelectedProfileCard)
   }, [currentUserData, triviaTotal])
 
   return currentUser && currentUserData ? (
