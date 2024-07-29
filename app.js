@@ -1,5 +1,3 @@
-import 'dotenv/config'
-require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const logger = require('morgan')
@@ -16,4 +14,4 @@ app.use(cors())
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use('/api', AppRouter)
-app.listen(PORT, '0.0.0.0', () => console.log('Server running on port 3000'))
+app.listen(PORT, () => console.log('Server running on port 3000'))
