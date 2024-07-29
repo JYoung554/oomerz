@@ -9,7 +9,16 @@ const AuthRouter = require('./routes/AuthRouter')
 const TriviaRouter = require('./routes/TriviaRouter')
 const ProfileRouter = require('./routes/ProfileRouter')
 
+
 const PORT = process.env.PORT || '3000'
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')))
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(`${__dirname}/client/build/index.html`))
+  })
+}
+
 app.use(cors())
 app.use(logger('dev'))
 app.use(bodyParser.json())
