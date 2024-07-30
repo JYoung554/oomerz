@@ -1,5 +1,5 @@
 require('dotenv').config()
-export default {
+module.exports = {
   development: {
     database: 'oomerz_development',
     host: '127.0.0.1',
