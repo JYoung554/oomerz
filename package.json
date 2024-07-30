@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
+    "start": "node app.js && -r dotenv/config config.js",
     "dev": "nodemon app.js",
     "build": "npm install && cd client && rm -rf build && npm install && npm run build"
   },
@@ -30,6 +30,9 @@
     "pg": "^8.12.0",
     "postgres": "^3.4.4",
     "sequelize": "^6.37.3"
+  },
+  "engines": {
+    "node": ">= 8.19.2"
   },
   "devDependencies": {
     "faker": "^6.6.6",
