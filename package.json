@@ -31,9 +31,6 @@
     "postgres": "^3.4.4",
     "sequelize": "^6.37.3"
   },
-  "engines": {
-    "node": ">= 22.5.1"
-  },
   "devDependencies": {
     "faker": "^6.6.6",
     "nodemon": "^3.1.4"
