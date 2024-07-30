@@ -10,7 +10,7 @@ const TriviaRouter = require('./routes/TriviaRouter')
 const ProfileRouter = require('./routes/ProfileRouter')
 
 
-const PORT = process.env.PORT || '3000'
+const PORT = process.env.PORT || 3001
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')))
@@ -19,8 +19,8 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-app.use(cors())
 app.use(logger('dev'))
+app.use(cors())
 app.use(bodyParser.json())
 app.use('/api', AppRouter)
-app.listen(PORT, () => console.log('Server running on port 3000'))
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
