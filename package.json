@@ -32,7 +32,7 @@
     "sequelize": "^6.37.3"
   },
   "engines": {
-    "node": ">= 8.19.2"
+    "node": ">= 22.5.1"
   },
   "devDependencies": {
     "faker": "^6.6.6",
