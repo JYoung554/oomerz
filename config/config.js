@@ -14,12 +14,6 @@ module.exports = {
     use_env_variable: 'DATABASE_URL',
     database: 'oomerz_production',
     host: '127.0.0.1',
-    dialect: 'postgres',
-    dialectOptions: {
-      ssl: {
-        rejectUnauthorized: false,
-        require: true
-      }
-    }
+    dialect: 'postgres'
   }
 }
