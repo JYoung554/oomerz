@@ -55,6 +55,7 @@ const Register = (props) => {
       })
       history('/login')
     } catch (error) {
+      console.log(error)
       throw error
     }
   }
