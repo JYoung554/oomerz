@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const cors = require('cors')
 const logger = require('morgan')
@@ -8,7 +9,6 @@ const AppRouter = require('./routes/index')
 const AuthRouter = require('./routes/AuthRouter')
 const TriviaRouter = require('./routes/TriviaRouter')
 const ProfileRouter = require('./routes/ProfileRouter')
-
 
 const PORT = process.env.PORT || 3001
 
