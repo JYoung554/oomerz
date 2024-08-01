@@ -11,4 +11,4 @@ axios.interceptors.request.use(
   (error) => Promise.reject(error)
 )
 
-export const BASE_URL = 'https://oomerz-app-a2149b56e423.herokuapp.com/api'
+export const BASE_URL = 'http://localhost:5432/api'
