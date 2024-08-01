@@ -11,4 +11,4 @@ axios.interceptors.request.use(
   (error) => Promise.reject(error)
 )
 
-export const BASE_URL = 'http://localhost:3000/api'
+export const BASE_URL = 'http://localhost:5432/api'
