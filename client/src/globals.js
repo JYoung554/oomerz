@@ -11,5 +11,4 @@ axios.interceptors.request.use(
   (error) => Promise.reject(error)
 )
 
-export const BASE_URL =
-  'postgres://jfears:aarons@localhost:5432/oomerz_development/api'
+export const BASE_URL = 'https://oomerz-app-a2149b56e423.herokuapp.com/api'
