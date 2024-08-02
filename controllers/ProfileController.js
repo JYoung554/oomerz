@@ -19,7 +19,7 @@ const getOneProfileCard = async (req, res) => {
     let user_id = parseInt(req.params.user_id)
     const profileCard = await ProfileCard.findOne({
       attributes: ['id', 'caption', 'genStatus', 'triviaTotal'],
-      where: { profileCardId: profileCardId }
+      where: { id: user_id }
     })
     res.send(profileCard)
     console.log(profileCard)
