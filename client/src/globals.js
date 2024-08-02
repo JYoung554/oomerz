@@ -1,5 +1,10 @@
 import axios from 'axios'
 
+export const BASE_URL =
+  process.env.NODE_ENV === 'production'
+    ? `${window.location.origin}/api`
+    : 'http://localhost:5432/api'
+
 axios.interceptors.request.use(
   (config) => {
     let token = localStorage.getItem('token')
@@ -11,4 +16,4 @@ axios.interceptors.request.use(
   (error) => Promise.reject(error)
 )
 
-export const BASE_URL = 'http://localhost:5432/api'
+
