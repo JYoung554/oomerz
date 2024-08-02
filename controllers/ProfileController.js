@@ -30,10 +30,10 @@ const getOneProfileCard = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    const handle = req.params.handle
+    const userId = req.params.user_id
     const user = await User.findOne({
       attributes: ['id', 'handle', 'avatarUrl'],
-      where: { handle: handle },
+      where: { id: userId },
       include: [
         {
           model: ProfileCard,
