@@ -30,10 +30,10 @@ const getOneProfileCard = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    const userId = req.params.user_id
+    const handle = req.params.handle
     const user = await User.findOne({
       attributes: ['id', 'handle', 'avatarUrl'],
-      where: { id: userId },
+      where: { handle: handle },
       include: [
         {
           model: ProfileCard,
@@ -51,10 +51,10 @@ const getUser = async (req, res) => {
 
 const getOneUser = async (req, res) => {
   try {
-    const userId = req.params.user_id
+    let handle = req.params.handle
     const user = await User.findOne({
       attributes: ['id', 'handle', 'avatarUrl'],
-      where: { id: userId },
+      where: { handle: handle },
       include: [
         {
           model: ProfileCard,
