@@ -9,15 +9,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       genStatus: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       triviaTotal: {
-        type: Sequelize.INTEGER
-      },
-      userId: {
         type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        references: { model: 'users', key: 'id' },
         allowNull: false
       },
       createdAt: {
