@@ -177,7 +177,7 @@ const App = () => {
           }
         ></Route>
         <Route
-          path={`/home/:${state.currentUser.handle}`}
+          path={`/home/:${state.currentUser.id}`}
           element={
             <Home
               authenticated={state.authenticated}
