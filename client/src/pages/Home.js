@@ -203,6 +203,7 @@ const Home = (props) => {
 
   useEffect(() => {
     getProfile()
+    handleProfileCardSubmit()
   }, [currentUserData, triviaTotal])
 
   return currentUser && currentUserData ? (
