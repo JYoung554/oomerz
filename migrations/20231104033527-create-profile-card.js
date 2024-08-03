@@ -1,29 +1,20 @@
 'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('profileCards', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        defaultValue: ''
+      userId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: { model: 'users', key: 'id' },
+        allowNull: true
       },
       handle: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        defaultValue: ''
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        defaultValue: ''
-      },
-      passwordDigest: {
         type: Sequelize.STRING,
         allowNull: true,
         defaultValue: ''
@@ -32,6 +23,21 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
         defaultValue: ''
+      },
+      caption: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        defaultValue: ''
+      },
+      genStatus: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        defaultValue: ''
+      },
+      triviaTotal: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,
@@ -44,6 +50,6 @@ module.exports = {
     })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users')
+    await queryInterface.dropTable('profileCards')
   }
 }
