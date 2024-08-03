@@ -82,7 +82,7 @@ const Home = (props) => {
   }
 
   const handleProfileCardSubmit = async (e) => {
-    e.preventDefault()
+    //e.preventDefault()
     try {
       const res = await axios.post(`${BASE_URL}/home/${currentUser.id}`, {
         caption: state.captionForm,
