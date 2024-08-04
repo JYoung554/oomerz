@@ -3,9 +3,7 @@ const middleware = require('../middleware')
 
 const createProfileCard = async (req, res) => {
   try {
-    let profileCardId = req.params.profileCard_id
     const profileCard = await ProfileCard.create({
-      profileCardId,
       ...req.body
     })
     res.send(profileCard)
