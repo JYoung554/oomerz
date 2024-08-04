@@ -53,7 +53,7 @@ const Register = async (req, res) => {
       }
     )
 
-    console.log(user.password)
+    console.log(user)
     res.send(user)
   } catch (error) {
     throw error

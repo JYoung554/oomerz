@@ -216,7 +216,6 @@ const Home = (props) => {
 
   useEffect(() => {
     getProfile()
-    getProfileLogin()
   }, [currentUserData, triviaTotal])
 
   return currentUser && currentUserData ? (
