@@ -83,7 +83,7 @@ const Home = (props) => {
 
   const getProfileLogin = async () => {
     try {
-      const res = await axios.post(`${BASE_URL}/home/${profileCard.id}`, {
+      const res = await axios.post(`${BASE_URL}/home`, {
         caption: state.captionForm,
         genStatus: genStatus,
         triviaTotal: state.triviaTotal,
@@ -248,9 +248,9 @@ const Home = (props) => {
                 </div>
               ) : (
                 <div>
-                  <p>{currentUserData.ProfileCard.caption}</p>
-                  <p>Generation: {currentUserData.ProfileCard.genStatus}</p>
-                  <p>Trivia : {currentUserData.ProfileCard.triviaTotal}</p>
+                  <p>{profileCard.caption}</p>
+                  <p>Generation: {profileCard.genStatus}</p>
+                  <p>Trivia : {profileCard.triviaTotal}</p>
 
                   <div>{renderProfileForm()}</div>
                 </div>
