@@ -133,7 +133,6 @@ const updateUsers = async (req, res) => {
       returning: true
     })
     res.send(profileCard)
-    console.log(profileCardId)
   } catch (error) {
     throw error
   }
