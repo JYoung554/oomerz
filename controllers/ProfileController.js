@@ -3,9 +3,21 @@ const middleware = require('../middleware')
 
 const createProfileCard = async (req, res) => {
   try {
-    const profileCard = await ProfileCard.create({
-      ...req.body
-    })
+    const userId = req.params.user_id
+    const profileCard = await ProfileCard.create(
+      {
+        userId,
+        ...req.body
+      },
+      {
+        include: [
+          {
+            model: User,
+            attributes: ['id', 'handle', 'avatarUrl']
+          }
+        ]
+      }
+    )
     res.send(profileCard)
   } catch (error) {
     throw error
