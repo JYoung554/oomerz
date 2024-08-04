@@ -16,7 +16,7 @@ router.put(
   VerifyToken,
   controller.updateProfileCardsByUser
 )
-router.post('/', StripToken, VerifyToken, controller.createProfileCard)
+router.post('/:user_id', StripToken, VerifyToken, controller.createProfileCard)
 router.delete('/:handle', StripToken, VerifyToken, controller.deleteUser)
 router.delete('/:user_id', StripToken, VerifyToken, controller.deleteProfile)
 module.exports = router
