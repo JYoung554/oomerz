@@ -1,4 +1,5 @@
 const { User } = require('../models')
+const { ProfileCard } = require('../models')
 const middleware = require('../middleware')
 
 const Login = async (req, res) => {
@@ -28,13 +29,30 @@ const Register = async (req, res) => {
   try {
     const { username, password, handle, email, avatarUrl } = req.body
     let passwordDigest = await middleware.hashPassword(password)
-    const user = await User.create({
-      username,
-      passwordDigest,
-      handle,
-      email,
-      avatarUrl
-    })
+    const user = await User.create(
+      {
+        username,
+        passwordDigest,
+        handle,
+        email,
+        avatarUrl,
+        profileCard: {
+          caption: '',
+          genStatus: '',
+          triviaTotal: 0,
+          userId: user.id
+        }
+      },
+      {
+        include: [
+          {
+            model: ProfileCard,
+            required: false,
+            attributes: ['id', 'caption', 'genStatus', 'triviaTotal']
+          }
+        ]
+      }
+    )
 
     console.log(user.password)
     res.send(user)
