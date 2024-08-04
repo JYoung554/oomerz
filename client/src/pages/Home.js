@@ -188,7 +188,7 @@ const Home = (props) => {
 
   const renderProfileForm = () => {
     return currentUserData.ProfileCard === null ? (
-      <form class="form-style" onSubmit={(e) => handleProfileCardSubmit(e)}>
+      <form class="form-style" onSubmit={(e) => updateCaption(e)}>
         <input
           type="text"
           name="captionForm"
@@ -200,7 +200,7 @@ const Home = (props) => {
         ></input>
       </form>
     ) : (
-      <form class="form-style" onSubmit={(e) => updateCaption(e)}>
+      <form class="form-style" onSubmit={(e) => handleProfileCardSubmit(e)}>
         <input
           type="text"
           name="captionForm"
