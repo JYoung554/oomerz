@@ -73,6 +73,7 @@ const Home = (props) => {
       console.log(error)
     }
     console.log(currentUser.id)
+    console.log(profileCard)
   }
   const getProfileCardsByHandle = async () => {
     const res = await axios.get(`${BASE_URL}/home/${currentUser.handle}`)
