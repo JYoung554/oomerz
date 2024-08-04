@@ -101,8 +101,7 @@ const Home = (props) => {
       const res = await axios.post(`${BASE_URL}/home/${currentUser.id}`, {
         caption: state.captionForm,
         genStatus: genStatus,
-        triviaTotal: state.triviaTotal,
-        userId: currentUser.id
+        triviaTotal: state.triviaTotal
       })
       dispatch({ type: SUBMIT_CAPTION, payload: true })
       dispatch({ type: SELECT_COMMENT, payload: !state.clickedPostComment })
