@@ -246,9 +246,9 @@ const Home = (props) => {
                 </div>
               ) : (
                 <div>
-                  <p>{profileCard.caption}</p>
-                  <p>Generation: {profileCard.genStatus}</p>
-                  <p>Trivia : {profileCard.triviaTotal}</p>
+                  <p>{}</p>
+                  <p>Generation: {}</p>
+                  <p>Trivia : {}</p>
 
                   <div>{renderProfileForm()}</div>
                 </div>
