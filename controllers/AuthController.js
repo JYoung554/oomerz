@@ -39,8 +39,7 @@ const Register = async (req, res) => {
         profileCard: {
           caption: '',
           genStatus: '',
-          triviaTotal: 0,
-          userId: user.id
+          triviaTotal: 0
         }
       },
       {
