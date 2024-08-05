@@ -66,7 +66,7 @@ const Home = (props) => {
       const res = await axios.get(`${BASE_URL}/home/${currentUser.handle}`)
       if (!currentUserData && res.data) {
         appDispatch({ type: SET_CURRENT_USER_DATA, payload: res.data })
-        appDispatch({ type: SET_CARD, payload: res.data.ProfileCard })
+        //appDispatch({ type: SET_CARD, payload: res.data.ProfileCard })
         appDispatch({ type: SET_PROFILE_CARD, payload: res.data })
       }
     } catch (error) {
@@ -99,15 +99,18 @@ const Home = (props) => {
   const handleProfileCardSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post(`${BASE_URL}/home/${currentUser.id}`, {
-        caption: state.captionForm,
-        genStatus: genStatus,
-        triviaTotal: state.triviaTotal,
-        userId: currentUser.id
-      })
+      const res = await axios.post(
+        `${BASE_URL}/home/profile/${currentUser.id}`,
+        {
+          caption: state.captionForm,
+          genStatus: genStatus,
+          triviaTotal: state.triviaTotal,
+          userId: currentUser.id
+        }
+      )
+      appDispatch({ type: SET_CARD, payload: res.data })
       dispatch({ type: SUBMIT_CAPTION, payload: true })
       dispatch({ type: SELECT_COMMENT, payload: !state.clickedPostComment })
-      appDispatch({ type: SET_CARD, payload: res.data })
       appDispatch({
         type: SET_CURRENT_USER_SELECTED_PROFILE_CARD,
         payload: {

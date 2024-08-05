@@ -3,21 +3,11 @@ const middleware = require('../middleware')
 
 const createProfileCard = async (req, res) => {
   try {
-    const user_Id = parseInt(req.params.user_id)
-    const profileCard = await ProfileCard.create(
-      {
-        userId: user_Id,
-        ...req.body
-      },
-      {
-        include: [
-          {
-            model: User,
-            attributes: ['id', 'handle', 'avatarUrl']
-          }
-        ]
-      }
-    )
+    let user_Id = parseInt(req.params.user_id)
+    const profileCard = await ProfileCard.create({
+      userId: user_Id,
+      ...req.body
+    })
     res.send(profileCard)
   } catch (error) {
     throw error
