@@ -66,7 +66,7 @@ const Home = (props) => {
       const res = await axios.get(`${BASE_URL}/home/${currentUser.handle}`)
       if (!currentUserData && res.data) {
         appDispatch({ type: SET_CURRENT_USER_DATA, payload: res.data })
-        //appDispatch({ type: SET_CARD, payload: res.data.ProfileCard })
+        appDispatch({ type: SET_CARD, payload: res.data.ProfileCard })
         appDispatch({ type: SET_PROFILE_CARD, payload: res.data })
       }
     } catch (error) {
