@@ -1,6 +1,7 @@
 const { User } = require('../models')
 const { ProfileCard } = require('../models')
 const middleware = require('../middleware')
+const { Association } = require('sequelize')
 
 const Login = async (req, res) => {
   try {
@@ -29,13 +30,29 @@ const Register = async (req, res) => {
   try {
     const { username, password, handle, email, avatarUrl } = req.body
     let passwordDigest = await middleware.hashPassword(password)
-    const user = await User.create({
-      username,
-      passwordDigest,
-      handle,
-      email,
-      avatarUrl
-    })
+    const user = await User.create(
+      {
+        username,
+        passwordDigest,
+        handle,
+        email,
+        avatarUrl,
+        ProfileCards: {
+          caption: '',
+          genStatus: '',
+          triviaTotal: 0
+        }
+      },
+      {
+        include: [
+          {
+            Association: User.ProfileCard,
+            include: [ProfileCard]
+          }
+        ]
+      }
+    )
+
     console.log(user)
     res.send(user)
   } catch (error) {
