@@ -72,7 +72,7 @@ const Home = (props) => {
     } catch (error) {
       console.log(error)
     }
-    console.log(currentUser.id)
+    console.log(currentUserData)
     console.log(profileCard)
   }
   const getProfileCardsByHandle = async () => {
