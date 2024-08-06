@@ -82,19 +82,6 @@ const Home = (props) => {
     history('/profile')
   }
 
-  const getProfileLogin = async () => {
-    try {
-      const res = await axios.post(`${BASE_URL}/home`, {
-        caption: state.captionForm,
-        genStatus: genStatus,
-        triviaTotal: state.triviaTotal,
-        id: profileCard.id
-      })
-      appDispatch({ type: SET_CARD, payload: res.data })
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   const handleProfileCardSubmit = async (e) => {
     e.preventDefault()
