@@ -36,7 +36,7 @@ const Register = async (req, res) => {
         handle,
         email,
         avatarUrl,
-        profileCard: {
+        ProfileCards: {
           caption: '',
           genStatus: '',
           triviaTotal: 0
@@ -45,6 +45,7 @@ const Register = async (req, res) => {
       {
         include: [
           {
+            association: ProfileCard,
             model: ProfileCard,
             required: false,
             attributes: ['id', 'caption', 'genStatus', 'triviaTotal']
