@@ -47,7 +47,7 @@ const Register = async (req, res) => {
         include: [
           {
             Association: User.ProfileCard,
-            include: [ProfileCard]
+            include: { model: ProfileCard }
           }
         ]
       }
