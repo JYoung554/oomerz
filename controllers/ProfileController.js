@@ -54,7 +54,13 @@ const getOneUser = async (req, res) => {
     let handle = req.params.handle
     const user = await User.findOne({
       attributes: ['id', 'handle', 'avatarUrl'],
-      where: { handle: handle }
+      where: { handle: handle },
+      include: [
+        {
+          model: ProfileCard,
+          attributes: ['id', 'caption', 'genStatus', 'triviaTotal']
+        }
+      ]
     })
     res.send(user)
     console.log(user)
