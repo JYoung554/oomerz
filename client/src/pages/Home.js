@@ -86,12 +86,15 @@ const Home = (props) => {
   const handleProfileCardSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post(`${BASE_URL}/home/profile`, {
-        caption: state.captionForm,
-        genStatus: genStatus,
-        triviaTotal: state.triviaTotal,
-        userId: currentUser.id
-      })
+      const res = await axios.post(
+        `${BASE_URL}/home/profile/${currentUser.id}`,
+        {
+          caption: state.captionForm,
+          genStatus: genStatus,
+          triviaTotal: state.triviaTotal,
+          userId: currentUser.id
+        }
+      )
       appDispatch({ type: SET_CARD, payload: res.data })
       dispatch({ type: SUBMIT_CAPTION, payload: true })
       dispatch({ type: SELECT_COMMENT, payload: !state.clickedPostComment })
