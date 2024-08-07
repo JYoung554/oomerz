@@ -86,7 +86,7 @@ const Home = (props) => {
   const handleProfileCardSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post(`${BASE_URL}/home/profile}`, {
+      const res = await axios.post(`${BASE_URL}/home/profile`, {
         caption: state.captionForm,
         genStatus: genStatus,
         triviaTotal: state.triviaTotal,
