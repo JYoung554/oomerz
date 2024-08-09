@@ -3,12 +3,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return (
-      queryInterface.addColumn('profileCards', 'id', {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      }),
       queryInterface.addColumn('profileCards', 'userId', {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
