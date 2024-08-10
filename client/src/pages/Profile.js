@@ -86,14 +86,14 @@ const Profile = (props) => {
               alt={`Your avatar ${currentUserData.handle}`}
             ></img>
           </button>
-          {currentUserData.ProfileCard !== null ? (
+          {currentUserData.ProfileCard === null ? (
+            <p>No Profile</p>
+          ) : (
             <div>
               <p>{currentUserData.ProfileCard.caption}</p>
               <p>{currentUserData.ProfileCard.genStatus}</p>
               <p>{currentUserData.ProfileCard.triviaTotal}</p>
             </div>
-          ) : (
-            <p>No Profile</p>
           )}
         </div>
         <div>
