@@ -125,6 +125,7 @@ const Home = (props) => {
       dispatch({ type: SELECT_COMMENT, payload: !state.clickedPostComment })
       const profile = res.data
       console.log(res.data)
+      console.log(profileCard)
       appDispatch({
         type: SET_CARD,
         payload: profile,
