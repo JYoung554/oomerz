@@ -99,15 +99,6 @@ const Home = (props) => {
       dispatch({ type: SUBMIT_CAPTION, payload: true })
       dispatch({ type: SELECT_COMMENT, payload: !state.clickedPostComment })
       appDispatch({
-        type: SET_CURRENT_USER_SELECTED_PROFILE_CARD,
-        payload: {
-          ...currentUserSelectedProfileCard,
-          caption: state.captionForm,
-          genStatus: genStatus,
-          triviaTotal: state.triviaTotal
-        }
-      })
-      appDispatch({
         type: PROFILE_CARDS_BY_HANDLE,
         payload: [
           ...profileCardsByHandle,
@@ -180,7 +171,7 @@ const Home = (props) => {
 
   const renderProfileForm = () => {
     return currentUserData.ProfileCard === null ? (
-      <form class="form-style" onSubmit={(e) => updateCaption(e)}>
+      <form class="form-style" onSubmit={(e) => handleProfileCardSubmit(e)}>
         <input
           type="text"
           name="captionForm"
@@ -192,7 +183,7 @@ const Home = (props) => {
         ></input>
       </form>
     ) : (
-      <form class="form-style" onSubmit={(e) => handleProfileCardSubmit(e)}>
+      <form class="form-style" onSubmit={(e) => updateCaption(e)}>
         <input
           type="text"
           name="captionForm"
