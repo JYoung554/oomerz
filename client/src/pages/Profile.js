@@ -17,7 +17,7 @@ const Profile = (props) => {
     appDispatch,
     currentUserData
   } = props
-
+  /*
   const getAllProfileCards = async () => {
     try {
       const res = await axios.get(
@@ -28,6 +28,7 @@ const Profile = (props) => {
       console.log(error)
     }
   }
+*/
 
   const getProfile = async () => {
     try {
@@ -62,7 +63,7 @@ const Profile = (props) => {
 
   useEffect(() => {
     getProfile()
-    getAllProfileCards()
+    //getAllProfileCards()
 
     console.log(profileCard)
   }, [selectedUser])

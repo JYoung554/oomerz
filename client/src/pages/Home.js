@@ -200,7 +200,7 @@ const Home = (props) => {
 
   useEffect(() => {
     getProfile()
-  }, [currentUserData, triviaTotal])
+  }, [currentUserData, profileCard, triviaTotal])
 
   return currentUser && currentUserData ? (
     <div class="main-container">

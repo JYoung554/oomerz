@@ -98,7 +98,7 @@ const Trivia = (props) => {
           ...profile,
           id: profile.id,
           genStatus: genText,
-          triviaTotal: profile.triviaTotalNumber
+          triviaTotal: triviaTotalNumber
         }
       })
       appDispatch({
