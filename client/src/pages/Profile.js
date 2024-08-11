@@ -6,8 +6,6 @@ import { BASE_URL } from '../globals'
 import { SET_PROFILE_CARD, SET_CARD, SET_USER } from '../store/types'
 
 
-
-
 const Profile = (props) => {
   const history = useNavigate()
   const {
@@ -17,18 +15,6 @@ const Profile = (props) => {
     appDispatch,
     currentUserData
   } = props
-  /*
-  const getAllProfileCards = async () => {
-    try {
-      const res = await axios.get(
-        `${BASE_URL}/home/profileCard/${profileCard.id}`
-      )
-      appDispatch({ type: SET_CARD, payload: res.data.ProfileCard })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-*/
 
   const getProfile = async () => {
     try {
@@ -63,8 +49,6 @@ const Profile = (props) => {
 
   useEffect(() => {
     getProfile()
-    //getAllProfileCards()
-
     console.log(profileCard)
   }, [selectedUser])
 
