@@ -1,7 +1,6 @@
 # Oomerz
 
-## Visit [Oomerz](https://oomerz-app-a2149b56e423.herokuapp.com/)
-
+## Visit [Oomerz](https://oomerz-app-5ae0c308eabb.herokuapp.com/)
 ![Oomerz](/images/IMG_2484.jpg)
 
 ***
